@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://mingdroid.github.io/2016/09/22/View的事件传递机制分析/index.html">
 <meta property="og:site_name" content="mingdroid">
 <meta property="og:description" content="Android视图由两个基类组件组成：View、ViewGroup。与事件相关的有三个主要方法，dispatchTouchEvent，onInterceptTouchEvent，onTouchEvent。那么理解了View和ViewGroup中的这三个方法，基本就能清楚Android的时间传递机制。">
-<meta property="og:updated_time" content="2016-09-21T18:36:12.198Z">
+<meta property="og:updated_time" content="2016-09-22T03:58:42.210Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="View的事件传递机制分析">
 <meta name="twitter:description" content="Android视图由两个基类组件组成：View、ViewGroup。与事件相关的有三个主要方法，dispatchTouchEvent，onInterceptTouchEvent，onTouchEvent。那么理解了View和ViewGroup中的这三个方法，基本就能清楚Android的时间传递机制。">
@@ -276,11 +276,31 @@
       
 
       
-        <p>Android视图由两个基类组件组成：View、ViewGroup。与事件相关的有三个主要方法，dispatchTouchEvent，onInterceptTouchEvent，onTouchEvent。那么理解了View和ViewGroup中的这三个方法，基本就能清楚Android的时间传递机制。查阅源码最能深刻理解传递过程。</p>
+        <p>Android视图由两个基类组件组成：View、ViewGroup。与事件相关的有三个主要方法，dispatchTouchEvent，onInterceptTouchEvent，onTouchEvent。那么理解了View和ViewGroup中的这三个方法（View没有onInterceptTouchEvent方法），基本就能清楚Android的时间传递机制。查阅源码最能深刻理解传递过程。</p>
 <p>Android视图关系为：ViewGroup包含View或ViewGroup。事件传递入口为ViewGroup.dispatchTouchEvent。</p>
-<p>ViewGroup继承于View，ViewGroup没有实现onTouchEvent，所以View和ViewGroup的onTouchEvent方法做了同样的事情。</p>
+<h2>ViewGroup.dispatchTouchEvent</h2>
+<p>事件分发</p>
 <blockquote>
-<p>onTouchEvent总结
+<p>下一篇文章做分析</p>
+</blockquote>
+<h2>ViewGroup.onInterceptTouchEvent</h2>
+<p>事件拦截</p>
+<blockquote>
+<p>一目了然的源代码，一般不做拦截。
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (ev.isFromSource(InputDevice.SOURCE_MOUSE)</div><div class="line">            &amp;&amp; ev.getAction() == MotionEvent.ACTION_DOWN</div><div class="line">            &amp;&amp; ev.isButtonPressed(MotionEvent.BUTTON_PRIMARY)</div><div class="line">            &amp;&amp; isOnScrollbarThumb(ev.getX(), ev.getY())) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h2>View.dispatchTouchEvent</h2>
+<p>事件分发</p>
+<blockquote>
+<p>总结：
+如果设置了OnTouchListener,则调用其onTouch方法。若没有设置或没有消费事件，则调用View本身的onTouch方法。
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">...</div><div class="line">       ListenerInfo li = mListenerInfo;</div><div class="line">       <span class="keyword">if</span> (li != <span class="keyword">null</span> &amp;&amp; li.mOnTouchListener != <span class="keyword">null</span></div><div class="line">               &amp;&amp; (mViewFlags &amp; ENABLED_MASK) == ENABLED</div><div class="line">               &amp;&amp; li.mOnTouchListener.onTouch(<span class="keyword">this</span>, event)) &#123;</div><div class="line">           result = <span class="keyword">true</span>;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       <span class="keyword">if</span> (!result &amp;&amp; onTouchEvent(event)) &#123;</div><div class="line">           result = <span class="keyword">true</span>;</div><div class="line">       &#125;</div><div class="line">       ...</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h2>ViewGroup.onTouchEvent/View.onTouchEvent</h2>
+<p>事件处理</p>
+<p>ViewGroup继承于View，ViewGroup没有实现onTouchEvent，所以ViewGroup.onTouchEvent=View.onTouchEvent。</p>
+<blockquote>
+<p>onTouchEvent总结：
 处理点击事件，按下状态，点击声音</p>
 </blockquote>
 
@@ -414,7 +434,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">ViewGroup.dispatchTouchEvent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">ViewGroup.onInterceptTouchEvent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">View.dispatchTouchEvent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">ViewGroup.onTouchEvent/View.onTouchEvent</span></a></li></ol></div>
             
           </div>
         </section>
