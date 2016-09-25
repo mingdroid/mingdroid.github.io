@@ -1,0 +1,595 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="实现目标：View层只关注页面的实现，Presenter层只关注业务的实现，Model层只关注向上提供功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MVP框架搭建(1)">
+<meta property="og:url" content="http://mingdroid.github.io/2016/09/22/MVP框架搭建-1/index.html">
+<meta property="og:site_name" content="mingdroid">
+<meta property="og:description" content="实现目标：View层只关注页面的实现，Presenter层只关注业务的实现，Model层只关注向上提供功能。">
+<meta property="og:image" content="http://mingdroid.github.io/images/mvp-packages.png">
+<meta property="og:image" content="http://mingdroid.github.io/images/mvp-rest.png">
+<meta property="og:updated_time" content="2016-09-24T13:23:46.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MVP框架搭建(1)">
+<meta name="twitter:description" content="实现目标：View层只关注页面的实现，Presenter层只关注业务的实现，Model层只关注向上提供功能。">
+<meta name="twitter:image" content="http://mingdroid.github.io/images/mvp-packages.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://mingdroid.github.io/2016/09/22/MVP框架搭建-1/"/>
+
+  <title> MVP框架搭建(1) | mingdroid </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">mingdroid</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MVP框架搭建(1)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-22T17:27:09+08:00" content="2016-09-22">
+              2016-09-22
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1>框架描述</h1>
+<p>MVP各层对应的包为:<br>
+M --&gt; model包<br>
+V --&gt; ui包<br>
+P --&gt; presenter包<br>
+contract包为 V &lt;---&gt; P 之间的交互接口类。</p>
+<p><img src="/images/mvp-packages.png" alt="package"></p>
+<h2>retrofit + okhttp 构建 RESTful client</h2>
+<p>所有java bean类定义在bean包中，所有API service定义在service包中。<br>
+RestClient类是一个单例，是一个RESTful client，所有http请求服务均可从RestClient获取。<br>
+RestCallback类是一个retrofit请求回调，继承于retrofit2.Callback。<br>
+ResponseListener类是一个http请求响应监听。</p>
+<p><img src="/images/mvp-rest.png" alt="rest"></p>
+<h3>RestClient.java</h3>
+<p>单例构造，可参考 <a href="http://coolshell.cn/articles/265.html" target="_blank" rel="external">http://coolshell.cn/articles/265.html</a><br>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> RestClient restClient = <span class="keyword">new</span> RestClient();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> RestClient <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> SingletonHolder.restClient;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="title">RestClient</span><span class="params">()</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>RestClient的初始化：<br>
+1.构造OkhttpClient</p>
+<ul>
+<li>设置缓存Cache</li>
+<li>设置http头部信息</li>
+<li>其他，如果需要的话</li>
+</ul>
+<p>2.构造retrofit对象。</p>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Retrofit retrofit;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">    Cache cache = <span class="keyword">new</span> Cache(context.getCacheDir(), <span class="number">30</span> * <span class="number">1024</span> * <span class="number">1024</span>);</div><div class="line">    OkHttpClient.Builder builder = <span class="keyword">new</span> OkHttpClient.Builder();</div><div class="line">    builder.cache(cache);</div><div class="line">    builder.addInterceptor(<span class="keyword">new</span> Interceptor() &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">            <span class="comment">// Customize http head for global</span></div><div class="line">            <span class="comment">// User's data may be updated, so create new auth in every request;</span></div><div class="line">            User user = DataCenter.getInstance().getUser();</div><div class="line">            String auth = user.getMemberId() + <span class="string">":"</span> + user.getSessionId();</div><div class="line">            Request request = chain.request();</div><div class="line">            Request newRequest = request.newBuilder()</div><div class="line">                    .addHeader(<span class="string">"User-Agent"</span>, <span class="string">"Android/milk"</span>)</div><div class="line">                    .addHeader(<span class="string">"Authorization"</span>, auth)</div><div class="line">                    .build();</div><div class="line"></div><div class="line">            <span class="keyword">return</span> chain.proceed(newRequest);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">if</span> (BuildConfig.DEBUG) &#123;</div><div class="line">        HttpLoggingInterceptor loggingInterceptor = <span class="keyword">new</span> HttpLoggingInterceptor();</div><div class="line">        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);</div><div class="line">        builder.addInterceptor(loggingInterceptor);</div><div class="line">    &#125;</div><div class="line">    OkHttpClient okHttpClient = builder.build();</div><div class="line"></div><div class="line">    retrofit = <span class="keyword">new</span> Retrofit.Builder()</div><div class="line">            .baseUrl(Constants.DOMAIN)</div><div class="line">            .addConverterFactory(GsonConverterFactory.create())</div><div class="line">            .client(okHttpClient)</div><div class="line">            .build();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3>RestCallback.java、ResponseListener.java</h3>
+<p>每个http请求返回的json数据都带有两个字段status、message。
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String status;</div><div class="line">    <span class="keyword">private</span> String message;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>统一处理http请求的回调。</p>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestCallback</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Base</span>&gt; <span class="keyword">implements</span> <span class="title">Callback</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">    <span class="keyword">private</span> ResponseListener listener;</div><div class="line">    <span class="keyword">private</span> String tag;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RestCallback</span><span class="params">(ResponseListener listener, String tag)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.listener = listener;</div><div class="line">        <span class="keyword">this</span>.tag = tag;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call&lt;T&gt; call, Response&lt;T&gt; response)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (response.isSuccessful()) &#123;</div><div class="line">            <span class="comment">// status code [200, 299]</span></div><div class="line">            Base base = response.body();</div><div class="line">            <span class="keyword">if</span> (<span class="string">"success"</span>.equals(base.getStatus())) &#123;</div><div class="line">                listener.onSuccess(base, tag);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                listener.onError(base, tag);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">// status code [400, 599]</span></div><div class="line">            listener.onFailure(tag);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call&lt;T&gt; call, Throwable t)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (BuildConfig.DEBUG) &#123;</div><div class="line">            t.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        listener.onFailure(tag);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我定义了一个ResponseListener，优化http请求响应接口。</p>
+<blockquote>
+<p>onSuccess()表示：一次完整的http通信，json解析正确，无异常，正常显示数据。<br>
+onError()表示：一次完成完整的http通信，json解析正确，服务器发现有异常（status=error）。<br>
+onFailure表示：http通信不完整，出现网络问题，或者json解析出现异常。</p>
+</blockquote>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ResponseListener</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Base base, String tag)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Base base, String tag)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(String tag)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2>使用示例</h2>
+<p>使用instagram的公共api做示例，例如<a href="https://www.instagram.com/developer/endpoints/users/" target="_blank" rel="external">https://www.instagram.com/developer/endpoints/users/</a></p>
+<blockquote>
+<p>获取用户信息</p>
+</blockquote>
+<p>step1: 定义用户数据类型UserBean(在 model.rest.bean 包中)
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserBean</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String id;</div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line">    <span class="keyword">private</span> String full_name;</div><div class="line">    <span class="keyword">private</span> String profile_picture;</div><div class="line">    <span class="keyword">private</span> String bio;</div><div class="line">    <span class="keyword">private</span> String website;</div><div class="line">    <span class="keyword">private</span> CountsBean counts;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>step2：定义API GET /users/{user-id} (在model.rest.service包中)
+如何获取accessToken的步骤省略
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UsersService</span> </span>&#123;</div><div class="line">    <span class="meta">@GET</span>(<span class="string">"/v1/users/&#123;user_id&#125;"</span>)</div><div class="line">    <span class="function">Base&lt;UserBean&gt; <span class="title">getUserInfo</span><span class="params">(@Path(<span class="string">"user_id"</span>)</span> String userId, String accessToken)</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>step3: 在RestClient.java中新增方法：创建UsersService服务。
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> UsersService <span class="title">getUsersService</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> retrofit.create(UsersService.class);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>step4: 使用</p>
+<pre><code class="language-java"></code></pre>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/22/View的事件传递机制分析/" rel="next" title="View的事件传递机制分析">
+                <i class="fa fa-chevron-left"></i> View的事件传递机制分析
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Huang Ming" />
+          <p class="site-author-name" itemprop="name">Huang Ming</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">框架描述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">retrofit + okhttp 构建 RESTful client</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.1.</span> <span class="nav-text">RestClient.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.2.</span> <span class="nav-text">RestCallback.java、ResponseListener.java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">使用示例</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huang Ming</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
