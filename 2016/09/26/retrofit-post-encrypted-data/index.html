@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="Android视图由两个基类组件组成：View、ViewGroup。与事件相关的有三个主要方法，dispatchTouchEvent，onInterceptTouchEvent，onTouchEvent。那么理解了View和ViewGroup中的这三个方法，基本就能清楚Android的时间传递机制。">
+<meta name="description" content="若你的服务还是使用http，而非https，那么在提交敏感信息的时候自然要做加密啦。使用非对称加密，客户端保存公钥，加密数据。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="View的事件传递机制分析">
-<meta property="og:url" content="http://mingdroid.github.io/2016/09/22/View的事件传递机制分析/index.html">
+<meta property="og:title" content="retrofit post encrypted data">
+<meta property="og:url" content="http://mingdroid.github.io/2016/09/26/retrofit-post-encrypted-data/index.html">
 <meta property="og:site_name" content="mingdroid">
-<meta property="og:description" content="Android视图由两个基类组件组成：View、ViewGroup。与事件相关的有三个主要方法，dispatchTouchEvent，onInterceptTouchEvent，onTouchEvent。那么理解了View和ViewGroup中的这三个方法，基本就能清楚Android的时间传递机制。">
-<meta property="og:updated_time" content="2016-09-22T03:58:42.210Z">
+<meta property="og:description" content="若你的服务还是使用http，而非https，那么在提交敏感信息的时候自然要做加密啦。使用非对称加密，客户端保存公钥，加密数据。">
+<meta property="og:updated_time" content="2016-09-26T08:20:50.778Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="View的事件传递机制分析">
-<meta name="twitter:description" content="Android视图由两个基类组件组成：View、ViewGroup。与事件相关的有三个主要方法，dispatchTouchEvent，onInterceptTouchEvent，onTouchEvent。那么理解了View和ViewGroup中的这三个方法，基本就能清楚Android的时间传递机制。">
+<meta name="twitter:title" content="retrofit post encrypted data">
+<meta name="twitter:description" content="若你的服务还是使用http，而非https，那么在提交敏感信息的时候自然要做加密啦。使用非对称加密，客户端保存公钥，加密数据。">
 
 
 
@@ -114,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="http://mingdroid.github.io/2016/09/22/View的事件传递机制分析/"/>
+  <link rel="canonical" href="http://mingdroid.github.io/2016/09/26/retrofit-post-encrypted-data/"/>
 
-  <title> View的事件传递机制分析 | mingdroid </title>
+  <title> retrofit post encrypted data | mingdroid </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +236,7 @@
             
             
               
-                View的事件传递机制分析
+                retrofit post encrypted data
               
             
           </h1>
@@ -248,8 +248,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-22T01:45:43+08:00" content="2016-09-22">
-              2016-09-22
+            <time itemprop="dateCreated" datetime="2016-09-26T15:51:25+08:00" content="2016-09-26">
+              2016-09-26
             </time>
           </span>
 
@@ -276,33 +276,49 @@
       
 
       
-        <p>Android视图由两个基类组件组成：View、ViewGroup。与事件相关的有三个主要方法，dispatchTouchEvent，onInterceptTouchEvent，onTouchEvent。那么理解了View和ViewGroup中的这三个方法（View没有onInterceptTouchEvent方法），基本就能清楚Android的时间传递机制。查阅源码最能深刻理解传递过程。</p>
-<p>Android视图关系为：ViewGroup包含View或ViewGroup。事件传递入口为ViewGroup.dispatchTouchEvent。</p>
-<h2>ViewGroup.dispatchTouchEvent</h2>
-<p>事件分发</p>
-<blockquote>
-<p>下一篇文章做分析</p>
+        <blockquote>
+<p>数据协定为json格式</p>
 </blockquote>
-<h2>ViewGroup.onInterceptTouchEvent</h2>
-<p>事件拦截</p>
-<blockquote>
-<p>一目了然的源代码，一般不做拦截。
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (ev.isFromSource(InputDevice.SOURCE_MOUSE)</div><div class="line">            &amp;&amp; ev.getAction() == MotionEvent.ACTION_DOWN</div><div class="line">            &amp;&amp; ev.isButtonPressed(MotionEvent.BUTTON_PRIMARY)</div><div class="line">            &amp;&amp; isOnScrollbarThumb(ev.getX(), ev.getY())) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h2>View.dispatchTouchEvent</h2>
-<p>事件分发</p>
-<blockquote>
-<p>总结：
-如果设置了OnTouchListener,则调用其onTouch方法。若没有设置或没有消费事件，则调用View本身的onTouch方法。
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">...</div><div class="line">       ListenerInfo li = mListenerInfo;</div><div class="line">       <span class="keyword">if</span> (li != <span class="keyword">null</span> &amp;&amp; li.mOnTouchListener != <span class="keyword">null</span></div><div class="line">               &amp;&amp; (mViewFlags &amp; ENABLED_MASK) == ENABLED</div><div class="line">               &amp;&amp; li.mOnTouchListener.onTouch(<span class="keyword">this</span>, event)) &#123;</div><div class="line">           result = <span class="keyword">true</span>;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       <span class="keyword">if</span> (!result &amp;&amp; onTouchEvent(event)) &#123;</div><div class="line">           result = <span class="keyword">true</span>;</div><div class="line">       &#125;</div><div class="line">       ...</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h2>ViewGroup.onTouchEvent/View.onTouchEvent</h2>
-<p>事件处理</p>
-<p>ViewGroup继承于View，ViewGroup没有实现onTouchEvent，所以ViewGroup.onTouchEvent=View.onTouchEvent。</p>
-<blockquote>
-<p>onTouchEvent总结：
-处理点击事件，按下状态，点击声音</p>
-</blockquote>
+<p>工作流程：</p>
+<ul>
+<li>
+<p>生成RSA密钥
+服务端生成公钥私钥，把公钥给到客户端，用于加密。</p>
+</li>
+<li>
+<p>客户端加密
+客户端使用公钥加密提交的数据，生成字节流 <code>byte[]</code></p>
+</li>
+<li>
+<p>提交
+创建RequestBody，retrofit提交数据。</p>
+</li>
+<li>
+<p>服务器解密
+服务端取得数据 <code>byte[]</code>，使用私钥解密数据。</p>
+</li>
+</ul>
+<p>客户端实现过程：</p>
+<ul>
+<li>
+<p>定义提交接口API
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@POST(&quot;/&#123;path/to/post&#125;&quot;)</div><div class="line">Call&lt;TokenBean&gt; PostEncryptedData(@Path(&quot;path/to/post&quot;) String path, @Body RequestBody requestBody);</div></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>加密方法
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encryptString(String initialText) &#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">byte</span>[] keyBytes = Base64.decode(RSA_KEY, Base64.DEFAULT);</div><div class="line">        X509EncodedKeySpec x509EncodedKeySpec = <span class="keyword">new</span> X509EncodedKeySpec(keyBytes);</div><div class="line">        KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</div><div class="line">        RSAPublicKey rsaPublicKey = (RSAPublicKey) keyFactory.generatePublic(x509EncodedKeySpec);</div><div class="line"></div><div class="line">        <span class="comment">// Encrypt the text</span></div><div class="line">        Cipher input = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>, <span class="string">"AndroidOpenSSL"</span>);</div><div class="line">        input.init(Cipher.ENCRYPT_MODE, rsaPublicKey);</div><div class="line"></div><div class="line">        ByteArrayOutputStream outputStream = <span class="keyword">new</span> ByteArrayOutputStream();</div><div class="line">        CipherOutputStream cipherOutputStream = <span class="keyword">new</span> CipherOutputStream(</div><div class="line">                outputStream, input);</div><div class="line">        cipherOutputStream.write(initialText.getBytes(<span class="string">"UTF-8"</span>));</div><div class="line">        cipherOutputStream.close();</div><div class="line"></div><div class="line">        <span class="keyword">byte</span> [] vals = outputStream.toByteArray();</div><div class="line">        Log.d(<span class="string">"encryptString: "</span>, Base64.encodeToString(vals, Base64.DEFAULT));</div><div class="line">        <span class="keyword">return</span> vals;</div><div class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">        Log.e(TAG, Log.getStackTraceString(e));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>构造RequestBody
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> RequestBody <span class="title">createEncryptedBody</span><span class="params">(Object object, Type type)</span> </span>&#123;</div><div class="line">    String json = <span class="keyword">new</span> Gson().toJson(object, type);</div><div class="line">    <span class="keyword">byte</span>[] bytes = EncryptUtils.encryptString(json);    <span class="comment">//加密</span></div><div class="line">    <span class="keyword">if</span> (bytes == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    MediaType mediaType = MediaType.parse(<span class="string">"application/octet-stream"</span>);</div><div class="line">    <span class="keyword">return</span> RequestBody.create(mediaType, bytes);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p>提交
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(String name, String password)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (call == <span class="keyword">null</span>) &#123;</div><div class="line">        HashMap&lt;String, String&gt; hashMap = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">2</span>);</div><div class="line">        hashMap.put(<span class="string">"name"</span>, name);</div><div class="line">        hashMap.put(<span class="string">"password"</span>, password);</div><div class="line">        RequestBody requestBody = RequestHelper.createEncryptedBody(hashMap, HashMap.class);</div><div class="line">        call = RestClient.getInstance().getEncryptService()</div><div class="line">                .PostEncryptedData(<span class="string">"path/to/login"</span>, requestBody);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</li>
+</ul>
+<hr>
+<p>That's all.</p>
 
       
     </div>
@@ -328,17 +344,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/21/ViewGroup.dispatchTouchEvent()分析/" rel="next" title="ViewGroup.dispatchTouchEvent()分析">
-                <i class="fa fa-chevron-left"></i> ViewGroup.dispatchTouchEvent()分析
+              <a href="/2016/09/22/MVP框架搭建-1/" rel="next" title="MVP框架搭建(1)">
+                <i class="fa fa-chevron-left"></i> MVP框架搭建(1)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/22/MVP框架搭建-1/" rel="prev" title="MVP框架搭建(1)">
-                MVP框架搭建(1) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -438,7 +450,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">ViewGroup.dispatchTouchEvent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">ViewGroup.onInterceptTouchEvent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">View.dispatchTouchEvent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">ViewGroup.onTouchEvent/View.onTouchEvent</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
