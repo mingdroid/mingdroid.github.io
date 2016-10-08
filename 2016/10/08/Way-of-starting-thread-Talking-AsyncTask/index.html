@@ -84,12 +84,31 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="mingdroid">
-<meta property="og:url" content="http://mingdroid.github.io/index.html">
+<meta name="description" content="Way of starting thread
+
+继承Thread类创建线程类
+通过Runnable接口创建线程类
+通过Callable和FutureTask创建线程
+1234567FutureTask&amp;lt;Object&amp;gt; future = new FutureTask&amp;lt;&amp;gt;(new Callable&amp;lt;Object&amp;gt;() &amp;#123;    @Override    p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Way of starting thread, Talking AsyncTask">
+<meta property="og:url" content="http://mingdroid.github.io/2016/10/08/Way-of-starting-thread-Talking-AsyncTask/index.html">
 <meta property="og:site_name" content="mingdroid">
+<meta property="og:description" content="Way of starting thread
+
+继承Thread类创建线程类
+通过Runnable接口创建线程类
+通过Callable和FutureTask创建线程
+1234567FutureTask&amp;lt;Object&amp;gt; future = new FutureTask&amp;lt;&amp;gt;(new Callable&amp;lt;Object&amp;gt;() &amp;#123;    @Override    p">
+<meta property="og:updated_time" content="2016-10-08T16:16:24.709Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mingdroid">
+<meta name="twitter:title" content="Way of starting thread, Talking AsyncTask">
+<meta name="twitter:description" content="Way of starting thread
+
+继承Thread类创建线程类
+通过Runnable接口创建线程类
+通过Callable和FutureTask创建线程
+1234567FutureTask&amp;lt;Object&amp;gt; future = new FutureTask&amp;lt;&amp;gt;(new Callable&amp;lt;Object&amp;gt;() &amp;#123;    @Override    p">
 
 
 
@@ -110,9 +129,9 @@
 
 
 
-  <link rel="canonical" href="http://mingdroid.github.io/"/>
+  <link rel="canonical" href="http://mingdroid.github.io/2016/10/08/Way-of-starting-thread-Talking-AsyncTask/"/>
 
-  <title> mingdroid </title>
+  <title> Way of starting thread, Talking AsyncTask | mingdroid </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -133,9 +152,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -212,9 +229,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -234,10 +251,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/10/08/Way-of-starting-thread-Talking-AsyncTask/" itemprop="url">
-                  Way of starting thread, Talking AsyncTask
-                </a>
+                Way of starting thread, Talking AsyncTask
               
             
           </h1>
@@ -277,9 +291,7 @@
       
 
       
-        
-          
-            <h1>Way of starting thread</h1>
+        <h1>Way of starting thread</h1>
 <ol>
 <li>继承Thread类创建线程类</li>
 <li>通过Runnable接口创建线程类</li>
@@ -295,16 +307,20 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
 <p>Google把设置默认执行者Executor的方法隐藏了。为什么呢？
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** <span class="doctag">@hide</span> */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setDefaultExecutor</span><span class="params">(Executor exec)</span> </span>&#123;</div><div class="line">    sDefaultExecutor = exec;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -312,505 +328,32 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/10/08/run-where/" rel="next" title="ANR">
+                <i class="fa fa-chevron-left"></i> ANR
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/10/08/run-where/" itemprop="url">
-                  ANR
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-08T16:23:07+08:00" content="2016-10-08">
-              2016-10-08
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Activity/Service/BroadcastReceiver/ContentProvider均运行在主线程，长时间的运行都会引发ANR。<br>
-引发ANR的具体分析，看博客<a href="http://gityuan.com/2016/07/02/android-anr/" target="_blank" rel="external">Android ANR原理分析</a><br>
-结论：</p>
-<ul>
-<li>Service Timeout:服务在20s内未执行完成；</li>
-<li>BroadcastQueue Timeout：比如前台广播在10s内执行完成</li>
-<li>ContentProvider Timeout：内容提供者执行超时</li>
-<li>inputDispatching Timeout: 输入事件分发超时5s，包括按键分发事件的超时。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/26/retrofit-post-encrypted-data/" itemprop="url">
-                  Retrofit Post Encrypted Data
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-26T15:51:25+08:00" content="2016-09-26">
-              2016-09-26
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          若你的服务还是使用http，而非https，那么在提交敏感信息的时候自然要做加密啦。使用非对称加密，客户端保存公钥，加密数据。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/26/retrofit-post-encrypted-data/">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/22/MVP框架搭建-1/" itemprop="url">
-                  MVP框架搭建(1)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-22T17:27:09+08:00" content="2016-09-22">
-              2016-09-22
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          实现目标：View层只关注页面的实现，Presenter层只关注业务的实现，Model层只关注向上提供功能。参考自谷歌的框架项目 android-architecture
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/22/MVP框架搭建-1/">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/22/View的事件传递机制分析/" itemprop="url">
-                  View的事件传递机制分析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-22T01:45:43+08:00" content="2016-09-22">
-              2016-09-22
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          Android视图由两个基类组件组成：View、ViewGroup。与事件相关的有三个主要方法，dispatchTouchEvent，onInterceptTouchEvent，onTouchEvent。那么理解了View和ViewGroup中的这三个方法，基本就能清楚Android的时间传递机制。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/22/View的事件传递机制分析/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/21/ViewGroup.dispatchTouchEvent()分析/" itemprop="url">
-                  ViewGroup.dispatchTouchEvent()分析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-21T21:35:00+08:00" content="2016-09-21">
-              2016-09-21
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          ViewGroup.dispatchTouchEvent()分析
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/21/ViewGroup.dispatchTouchEvent()分析/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -818,6 +361,10 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -837,8 +384,17 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -881,6 +437,17 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Way of starting thread</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Talking AsyncTask</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -977,6 +544,10 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
