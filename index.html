@@ -343,108 +343,6 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
             
               
                 
-                <a class="post-title-link" href="/2016/10/08/run-where/" itemprop="url">
-                  ANR
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-08T16:23:07+08:00" content="2016-10-08">
-              2016-10-08
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Activity/Service/BroadcastReceiver/ContentProvider均运行在主线程，长时间的运行都会引发ANR。<br>
-引发ANR的具体分析，看博客<a href="http://gityuan.com/2016/07/02/android-anr/" target="_blank" rel="external">Android ANR原理分析</a><br>
-结论：</p>
-<ul>
-<li>Service Timeout:服务在20s内未执行完成；</li>
-<li>BroadcastQueue Timeout：比如前台广播在10s内执行完成</li>
-<li>ContentProvider Timeout：内容提供者执行超时</li>
-<li>inputDispatching Timeout: 输入事件分发超时5s，包括按键分发事件的超时。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/09/26/retrofit-post-encrypted-data/" itemprop="url">
                   Retrofit Post Encrypted Data
                 </a>
@@ -849,7 +747,7 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
