@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://mingdroid.github.io/2016/10/14/做个笔记吧，OAuth2/index.html">
 <meta property="og:site_name" content="mingdroid">
 <meta property="og:description" content="从github的第三方登录学习OAuth2">
-<meta property="og:updated_time" content="2016-10-14T05:58:29.155Z">
+<meta property="og:updated_time" content="2016-10-14T06:07:57.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="做个笔记吧，OAuth2">
 <meta name="twitter:description" content="从github的第三方登录学习OAuth2">
@@ -277,11 +277,10 @@
 
       
         <h1>描述一下github的第三方登录</h1>
-<p><a href="https://developer.github.com/v3/oauth/" target="_blank" rel="external">Github OAuth</a><br>
+<p><a href="https://developer.github.com/v3/oauth/" target="_blank" rel="external">Github OAuth文档</a><br>
 this is a description of the OAuth2 flow from 3rd party web sites.</p>
-<ol>
-<li>Redirect users to request GitHub access</li>
-</ol>
+<hr>
+<h2>Redirect users to request GitHub access</h2>
 <blockquote>
 <p>GET https://github.com/login/oauth/authorize</p>
 </blockquote>
@@ -319,7 +318,7 @@ this is a description of the OAuth2 flow from 3rd party web sites.</p>
 <p>Response:</p>
 <blockquote>
 <p>status code:<br>
-302
+302<br>
 response headers:<br>
 Location: http://example.com/login/third?code=***</p>
 </blockquote>
@@ -329,10 +328,9 @@ Example URL: https://github.com/login/oauth/authorize?client_id=xxx&amp;redirect
 <p>结果：<br>
 这时候打开的是一个github官方登录移动网页版，客户端也不会接触到用户的用户名和密码，更不可能保存了。安全。<br>
 输入用户名，密码成功登录后，github会返回一个重定向要求，重定向链接格式是参数：<code>redirect_uri?code=***</code>，例子 <code>http://example.com/login/third?code=***</code>。code参数是github帮你加上的。</p>
-<ol start="2">
-<li>Github redirects back to your site.
-客户端的webview会自动请求链接 <code>http://example.com/login/third?code=***</code>，这样你的服务器便收到了该请求，取到下一步需要的code。下一步的登录请求在服务端完成（我做的例子因为没有服务器所以在客户端做了）。</li>
-</ol>
+<hr>
+<h2>Github redirects back to your site.</h2>
+<p>客户端的webview会自动请求链接 <code>http://example.com/login/third?code=***</code>，这样你的服务器便收到了该请求，取到下一步需要的code。下一步的登录请求在服务端完成（我做的例子因为没有服务器所以在客户端做了）。</p>
 <p>Exchange this for an access token:</p>
 <blockquote>
 <p>POST https://github.com/login/oauth/access_token</p>
@@ -371,18 +369,14 @@ Example URL: https://github.com/login/oauth/authorize?client_id=xxx&amp;redirect
 <p>Response：<br>
 多种格式，可以在请求头明确返回格式，如Accept: application/json，则返回json格式
 <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"access_token"</span>:<span class="string">"e72e16c7e42f292c6912e7710c838347ae178b4a"</span>,</div><div class="line">	<span class="attr">"scope"</span>:<span class="string">"repo,gist"</span>,</div><div class="line">	<span class="attr">"token_type"</span>:<span class="string">"bearer"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<ol start="3">
-<li>
-<p>服务端取到access_token，可以参照github第一步的返回，同样给客户端返回一个重定向请求，其中包含了access_token等信息。webview则不再跳转，捕获其中的信息。
+<hr>
+<h2>服务器取到access_token，返回给客户端</h2>
+<p>可以参照github第一步的返回，同样给客户端返回一个重定向请求，其中包含了access_token等信息。webview则不再跳转，捕获其中的信息。
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">webView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</div><div class="line">        Log.d(<span class="string">"webView url"</span>, url);</div><div class="line">        <span class="keyword">if</span> (url.startsWith(DEFINE_YOUR_UNIQUE_URI)) &#123;</div><div class="line">            Uri uri = Uri.parse(url);</div><div class="line">            String token = uri.getQueryParameter(<span class="string">"access_token"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.shouldOverrideUrlLoading(view, url);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-</li>
-<li>
-<p><a href="https://github.com/mingdroid/Milk" target="_blank" rel="external">代码示例</a> ，分支上还有instagram的第三方登录例子</p>
-</li>
-<li>
-<p>更好的学习在<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="external">这里</a></p>
-</li>
-</ol>
+<hr>
+<h2><a href="https://github.com/mingdroid/Milk" target="_blank" rel="external">代码示例</a> ，分支上还有instagram的第三方登录例子</h2>
+<hr>
+<h2>更好的学习在<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="external">这里</a></h2>
 
       
     </div>
@@ -527,7 +521,7 @@ Example URL: https://github.com/login/oauth/authorize?client_id=xxx&amp;redirect
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">描述一下github的第三方登录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">描述一下github的第三方登录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.</span> <span class="nav-text">Redirect users to request GitHub access</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.</span> <span class="nav-text">Github redirects back to your site.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.3.</span> <span class="nav-text">服务器取到access_token，返回给客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.</span> <span class="nav-text">代码示例 ，分支上还有instagram的第三方登录例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.5.</span> <span class="nav-text">更好的学习在这里</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
