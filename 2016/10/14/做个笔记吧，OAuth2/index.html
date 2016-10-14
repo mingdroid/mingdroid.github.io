@@ -84,31 +84,16 @@
 
 
 
-<meta name="description" content="Way of starting thread
-
-继承Thread类创建线程类
-通过Runnable接口创建线程类
-通过Callable和FutureTask创建线程
-1234567FutureTask&amp;lt;Object&amp;gt; future = new FutureTask&amp;lt;&amp;gt;(new Callable&amp;lt;Object&amp;gt;() &amp;#123;    @Override    p">
+<meta name="description" content="从github的第三方登录学习OAuth2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Way of starting thread, Talking AsyncTask">
-<meta property="og:url" content="http://mingdroid.github.io/2016/10/08/Way-of-starting-thread-Talking-AsyncTask/index.html">
+<meta property="og:title" content="做个笔记吧，OAuth2">
+<meta property="og:url" content="http://mingdroid.github.io/2016/10/14/做个笔记吧，OAuth2/index.html">
 <meta property="og:site_name" content="mingdroid">
-<meta property="og:description" content="Way of starting thread
-
-继承Thread类创建线程类
-通过Runnable接口创建线程类
-通过Callable和FutureTask创建线程
-1234567FutureTask&amp;lt;Object&amp;gt; future = new FutureTask&amp;lt;&amp;gt;(new Callable&amp;lt;Object&amp;gt;() &amp;#123;    @Override    p">
-<meta property="og:updated_time" content="2016-10-08T16:21:39.725Z">
+<meta property="og:description" content="从github的第三方登录学习OAuth2">
+<meta property="og:updated_time" content="2016-10-14T05:58:29.155Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Way of starting thread, Talking AsyncTask">
-<meta name="twitter:description" content="Way of starting thread
-
-继承Thread类创建线程类
-通过Runnable接口创建线程类
-通过Callable和FutureTask创建线程
-1234567FutureTask&amp;lt;Object&amp;gt; future = new FutureTask&amp;lt;&amp;gt;(new Callable&amp;lt;Object&amp;gt;() &amp;#123;    @Override    p">
+<meta name="twitter:title" content="做个笔记吧，OAuth2">
+<meta name="twitter:description" content="从github的第三方登录学习OAuth2">
 
 
 
@@ -129,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="http://mingdroid.github.io/2016/10/08/Way-of-starting-thread-Talking-AsyncTask/"/>
+  <link rel="canonical" href="http://mingdroid.github.io/2016/10/14/做个笔记吧，OAuth2/"/>
 
-  <title> Way of starting thread, Talking AsyncTask | mingdroid </title>
+  <title> 做个笔记吧，OAuth2 | mingdroid </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -251,7 +236,7 @@
             
             
               
-                Way of starting thread, Talking AsyncTask
+                做个笔记吧，OAuth2
               
             
           </h1>
@@ -263,8 +248,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-08T19:33:32+08:00" content="2016-10-08">
-              2016-10-08
+            <time itemprop="dateCreated" datetime="2016-10-14T12:40:39+08:00" content="2016-10-14">
+              2016-10-14
             </time>
           </span>
 
@@ -291,21 +276,113 @@
       
 
       
-        <h1>Way of starting thread</h1>
+        <h1>描述一下github的第三方登录</h1>
+<p><a href="https://developer.github.com/v3/oauth/" target="_blank" rel="external">Github OAuth</a><br>
+this is a description of the OAuth2 flow from 3rd party web sites.</p>
 <ol>
-<li>继承Thread类创建线程类</li>
-<li>通过Runnable接口创建线程类</li>
-<li>通过Callable和FutureTask创建线程
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">FutureTask&lt;Object&gt; future = <span class="keyword">new</span> FutureTask&lt;&gt;(<span class="keyword">new</span> Callable&lt;Object&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"><span class="keyword">new</span> Thread(future).start();</div></pre></td></tr></table></figure></li>
+<li>Redirect users to request GitHub access</li>
 </ol>
-<h1>Talking AsyncTask</h1>
-<p>AsyncTask内部定义了一个线程池，最终是这个线程池执行任务的。那么如何实现线性执行任务呢？<br>
-Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecutor实现了Executor接口，包含一个队列成员ArrayDeque&lt;Runnable&gt;。AsyncTask默认的执行者Executor便是SerialExecutor对象，是一个静态成员，每个异步任务最终都会被添加到队列ArrayDeque&lt;Runnable&gt;中。<br>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Executor SERIAL_EXECUTOR = <span class="keyword">new</span> SerialExecutor();</div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Executor sDefaultExecutor = SERIAL_EXECUTOR;</div><div class="line"></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SerialExecutor</span> <span class="keyword">implements</span> <span class="title">Executor</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> ArrayDeque&lt;Runnable&gt; mTasks = <span class="keyword">new</span> ArrayDeque&lt;Runnable&gt;();</div><div class="line">    Runnable mActive;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(<span class="keyword">final</span> Runnable r)</span> </span>&#123;</div><div class="line">        mTasks.offer(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    r.run();</div><div class="line">                &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                    scheduleNext();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        <span class="keyword">if</span> (mActive == <span class="keyword">null</span>) &#123;</div><div class="line">            scheduleNext();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">scheduleNext</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> ((mActive = mTasks.poll()) != <span class="keyword">null</span>) &#123;</div><div class="line">            THREAD_POOL_EXECUTOR.execute(mActive);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>若想并行执行任务，AsyncTask也是有提供方法的。
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, ...);</div></pre></td></tr></table></figure></p>
-<p>Google把设置默认执行者Executor的方法隐藏了。为什么呢？
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** <span class="doctag">@hide</span> */</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setDefaultExecutor</span><span class="params">(Executor exec)</span> </span>&#123;</div><div class="line">    sDefaultExecutor = exec;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>GET https://github.com/login/oauth/authorize</p>
+</blockquote>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字段名称</th>
+<th style="text-align:right">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">client_id</td>
+<td style="text-align:right">Required，在github注册你的应用的时候从github获取的id</td>
+</tr>
+<tr>
+<td style="text-align:left">redirect_uri</td>
+<td style="text-align:right">optional，在github注册应用时你必须有你的重定向uri，这个参数必须和那个要一致</td>
+</tr>
+<tr>
+<td style="text-align:left">scope</td>
+<td style="text-align:right">optional，使用github功能的权限范围</td>
+</tr>
+<tr>
+<td style="text-align:left">state</td>
+<td style="text-align:right">optional，一个随机字符串，用途：加强登录安全性</td>
+</tr>
+<tr>
+<td style="text-align:left">allow_signup</td>
+<td style="text-align:right">optional，是否允许未经验证的用户登录，默认是允许true</td>
+</tr>
+</tbody>
+</table>
+<p>Response:</p>
+<blockquote>
+<p>status code:<br>
+302
+response headers:<br>
+Location: http://example.com/login/third?code=***</p>
+</blockquote>
+<p>实际操作（编程实现）：<br>
+android中用一个webview打开该URL，webview.loadUrl()<br>
+Example URL: https://github.com/login/oauth/authorize?client_id=xxx&amp;redirect_uri=xxx&amp;scope=xxx</p>
+<p>结果：<br>
+这时候打开的是一个github官方登录移动网页版，客户端也不会接触到用户的用户名和密码，更不可能保存了。安全。<br>
+输入用户名，密码成功登录后，github会返回一个重定向要求，重定向链接格式是参数：<code>redirect_uri?code=***</code>，例子 <code>http://example.com/login/third?code=***</code>。code参数是github帮你加上的。</p>
+<ol start="2">
+<li>Github redirects back to your site.
+客户端的webview会自动请求链接 <code>http://example.com/login/third?code=***</code>，这样你的服务器便收到了该请求，取到下一步需要的code。下一步的登录请求在服务端完成（我做的例子因为没有服务器所以在客户端做了）。</li>
+</ol>
+<p>Exchange this for an access token:</p>
+<blockquote>
+<p>POST https://github.com/login/oauth/access_token</p>
+</blockquote>
+<p>Parameters:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字段名称</th>
+<th style="text-align:right">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">client_id</td>
+<td style="text-align:right">Required，在github注册你的应用的时候从github获取的id</td>
+</tr>
+<tr>
+<td style="text-align:left">client_secret</td>
+<td style="text-align:right">Required，在github注册你的应用的时候从github获取的secret，不要泄露，不要存放到客户端</td>
+</tr>
+<tr>
+<td style="text-align:left">code</td>
+<td style="text-align:right">Required，上一步获取的code字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">redirect_uri</td>
+<td style="text-align:right">optional，同上</td>
+</tr>
+<tr>
+<td style="text-align:left">state</td>
+<td style="text-align:right">optional，第一步提供的随机字符串，如果第一步提供，那么github会随同code一起返回的</td>
+</tr>
+</tbody>
+</table>
+<p>Response：<br>
+多种格式，可以在请求头明确返回格式，如Accept: application/json，则返回json格式
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"access_token"</span>:<span class="string">"e72e16c7e42f292c6912e7710c838347ae178b4a"</span>,</div><div class="line">	<span class="attr">"scope"</span>:<span class="string">"repo,gist"</span>,</div><div class="line">	<span class="attr">"token_type"</span>:<span class="string">"bearer"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>
+<p>服务端取到access_token，可以参照github第一步的返回，同样给客户端返回一个重定向请求，其中包含了access_token等信息。webview则不再跳转，捕获其中的信息。
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">webView.setWebViewClient(<span class="keyword">new</span> WebViewClient() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</div><div class="line">        Log.d(<span class="string">"webView url"</span>, url);</div><div class="line">        <span class="keyword">if</span> (url.startsWith(DEFINE_YOUR_UNIQUE_URI)) &#123;</div><div class="line">            Uri uri = Uri.parse(url);</div><div class="line">            String token = uri.getQueryParameter(<span class="string">"access_token"</span>);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.shouldOverrideUrlLoading(view, url);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+</li>
+<li>
+<p><a href="https://github.com/mingdroid/Milk" target="_blank" rel="external">代码示例</a> ，分支上还有instagram的第三方登录例子</p>
+</li>
+<li>
+<p>更好的学习在<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="external">这里</a></p>
+</li>
+</ol>
 
       
     </div>
@@ -337,17 +414,13 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/26/retrofit-post-encrypted-data/" rel="next" title="Retrofit Post Encrypted Data">
-                <i class="fa fa-chevron-left"></i> Retrofit Post Encrypted Data
+              <a href="/2016/10/08/Way-of-starting-thread-Talking-AsyncTask/" rel="next" title="Way of starting thread, Talking AsyncTask">
+                <i class="fa fa-chevron-left"></i> Way of starting thread, Talking AsyncTask
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/14/做个笔记吧，OAuth2/" rel="prev" title="做个笔记吧，OAuth2">
-                做个笔记吧，OAuth2 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -454,7 +527,7 @@ Google定义了一个叫<code>SerialExecutor</code>的类来实现，SerialExecu
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">Way of starting thread</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">Talking AsyncTask</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">描述一下github的第三方登录</span></a></li></ol></div>
             
           </div>
         </section>
