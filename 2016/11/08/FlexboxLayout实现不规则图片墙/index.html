@@ -1,0 +1,659 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="前提：服务器返回图片布局形式，图片大小。如上图的布局形式为[1,3,2,1]， 图片数量少。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FlexboxLayout实现不规则图片墙">
+<meta property="og:url" content="http://mingdroid.github.io/2016/11/08/FlexboxLayout实现不规则图片墙/index.html">
+<meta property="og:site_name" content="mingdroid">
+<meta property="og:description" content="前提：服务器返回图片布局形式，图片大小。如上图的布局形式为[1,3,2,1]， 图片数量少。">
+<meta property="og:image" content="http://mingdroid.github.io/images/FlexboxLayout.jpg">
+<meta property="og:updated_time" content="2016-11-08T11:03:07.560Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FlexboxLayout实现不规则图片墙">
+<meta name="twitter:description" content="前提：服务器返回图片布局形式，图片大小。如上图的布局形式为[1,3,2,1]， 图片数量少。">
+<meta name="twitter:image" content="http://mingdroid.github.io/images/FlexboxLayout.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://mingdroid.github.io/2016/11/08/FlexboxLayout实现不规则图片墙/"/>
+
+
+  <title> FlexboxLayout实现不规则图片墙 | mingdroid </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">mingdroid</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                FlexboxLayout实现不规则图片墙
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-08T14:35:43+08:00" content="2016-11-08">
+              2016-11-08
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/FlexboxLayout.jpg" alt="Flexbox" title="flexbox"></p>
+<p>前提：服务器返回图片布局形式，图片大小。如上图的布局形式为[1,3,2,1]</p>
+<h1>1. 了解FlexboxLayout功能</h1>
+<p><a href="https://github.com/google/flexbox-layout" target="_blank" rel="external">https://github.com/google/flexbox-layout</a><br>
+<a href="https://www.oschina.net/news/73442/google-flexbox-layout" target="_blank" rel="external">https://www.oschina.net/news/73442/google-flexbox-layout</a></p>
+<p>FlexboxLayout支持的属性:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">flexDirection</td>
+<td style="text-align:left">主轴的方向</td>
+<td style="text-align:left">row:row-reverse:column:column-reverse</td>
+</tr>
+<tr>
+<td style="text-align:left">flexWrap</td>
+<td style="text-align:left">支持的换行方式</td>
+<td style="text-align:left">nowrap:wrap:wrap-reverse</td>
+</tr>
+<tr>
+<td style="text-align:left">justifyContent</td>
+<td style="text-align:left">在主轴上的对齐方式</td>
+<td style="text-align:left">flex-start:flex-end:center:space-between:space-around</td>
+</tr>
+<tr>
+<td style="text-align:left">alignItems</td>
+<td style="text-align:left">在副轴上的对齐方式</td>
+<td style="text-align:left">flex-start:flex-end:center:baseline:stretch</td>
+</tr>
+<tr>
+<td style="text-align:left">alignContent</td>
+<td style="text-align:left">多根轴线的对齐方式</td>
+<td style="text-align:left">flex-start:flex-end:center:space-between:space-around</td>
+</tr>
+<tr>
+<td style="text-align:left">showDividerHorizontal</td>
+<td style="text-align:left">水平分割线</td>
+<td style="text-align:left">none:beginning:middle:end</td>
+</tr>
+<tr>
+<td style="text-align:left">dividerDrawableHorizontal</td>
+<td style="text-align:left">资源</td>
+<td style="text-align:left">drawable</td>
+</tr>
+<tr>
+<td style="text-align:left">showDividerVertical</td>
+<td style="text-align:left">垂直分割线</td>
+<td style="text-align:left">none:beginning:middle:end</td>
+</tr>
+<tr>
+<td style="text-align:left">dividerDrawableVertical</td>
+<td style="text-align:left">资源</td>
+<td style="text-align:left">drawable</td>
+</tr>
+<tr>
+<td style="text-align:left">showDivider</td>
+<td style="text-align:left">分割线</td>
+<td style="text-align:left">none:beginning:middle:end</td>
+</tr>
+<tr>
+<td style="text-align:left">dividerDrawable</td>
+<td style="text-align:left">资源</td>
+<td style="text-align:left">drawable</td>
+</tr>
+</tbody>
+</table>
+<p>FlexboxLayout的child view可设置的属性，略。（Attributes for the children of a FlexboxLayout）</p>
+<h1>2. 解决方案</h1>
+<p>使用以下属性，同时设置好ImageView的宽高即可。<br>
+方法1：</p>
+<blockquote>
+<p>app:flexDirection=&quot;row&quot;<br>
+app:flexWrap=&quot;wrap&quot;<br>
+app:justifyContent=&quot;space_between&quot;<br>
+app:showDividerHorizontal=&quot;middle&quot;<br>
+app:dividerDrawableHorizontal=&quot;@drawable/shape_flexbox_divider&quot;</p>
+</blockquote>
+<p>设置详解：</p>
+<ol>
+<li>主轴方向为行</li>
+<li>自动换行</li>
+<li>在一行内的对齐方式是图片之间置空</li>
+<li>显示水平分割线，在每行之间显示。</li>
+</ol>
+<p>方法2：</p>
+<blockquote>
+<p>app:flexDirection=&quot;row&quot;<br>
+app:flexWrap=&quot;wrap&quot;<br>
+app:showDivider=&quot;middle&quot;<br>
+app:dividerDrawable=&quot;@drawable/shape_flexbox_divider&quot;</p>
+</blockquote>
+<p>设置详解：</p>
+<ol>
+<li>主轴方向为行</li>
+<li>自动换行</li>
+<li>同时显示水平和垂直的分割线，在图片之间显示，在行之间显示。</li>
+</ol>
+<p><code>注意：由于使用的是dp单位，在计算时有除法可能出现误差，一定要计算精确，要不然会出现意外的换行（我用方法2就出现了意外换行，计算不精确）</code></p>
+<h1>3. 实现</h1>
+<p>FlexboxLayout的xml配置：<br>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">com.google.android.flexbox.FlexboxLayout</span></span></div><div class="line">    <span class="attr">android:id</span>=<span class="string">"@+id/content"</span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">    <span class="attr">app:flexDirection</span>=<span class="string">"row"</span></div><div class="line">    <span class="attr">app:flexWrap</span>=<span class="string">"wrap"</span></div><div class="line">    <span class="attr">app:justifyContent</span>=<span class="string">"space_between"</span></div><div class="line">    <span class="attr">app:showDividerHorizontal</span>=<span class="string">"middle"</span></div><div class="line">    <span class="attr">app:dividerDrawableHorizontal</span>=<span class="string">"@drawable/shape_flexbox_divider"</span></div><div class="line">    /&gt;</div></pre></td></tr></table></figure></p>
+<p>分割线资源文件配置：<br>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">shape</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">size</span> <span class="attr">android:width</span>=<span class="string">"4dp"</span></span></div><div class="line">        <span class="attr">android:height</span>=<span class="string">"4dp"</span>/&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">"@android:color/white"</span>/&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>伪代码：
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> ArrayList&lt;Info&gt; photos; <span class="comment">//图片信息，包含宽高</span></div><div class="line"><span class="keyword">private</span> ArrayList&lt;ImageView&gt; viewCache; <span class="comment">//缓存ImageView</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] layout = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>&#125;;  <span class="comment">//布局形式</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> dividerWidth; <span class="comment">//分割线大小</span></div><div class="line"><span class="keyword">private</span> WIDTH; <span class="comment">//FlexboxLayout的宽度</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setPhotoContent</span><span class="params">()</span> </span>&#123;</div><div class="line">    flexboxLayout.removeAllViews();</div><div class="line">    createPhotoView(photos.size());</div><div class="line">    <span class="keyword">int</span> position = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; layout.length; i++) &#123;</div><div class="line">        <span class="keyword">int</span> w = (WIDTH -(layout[i] - <span class="number">1</span>) * dividerWidth) / layout[i];</div><div class="line">        <span class="keyword">int</span> h = w * info.getHeight() / info.getWidth();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; layout[i]; j++) &#123;   </div><div class="line">        	setImageViewSize(viewCache(position), w, h);</div><div class="line">        	<span class="comment">//其他设置，如加载图片</span></div><div class="line">        	setUri(viewCache.get(position), photos.get(position));</div><div class="line">        	flexboxLayout.addView(view);</div><div class="line">        	position++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setImageViewSize</span><span class="params">(ImageView view, <span class="keyword">int</span> w, <span class="keyword">int</span> h)</span> </span>&#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setUri</span><span class="params">(ImageView view, Info info)</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">createPhotoView</span><span class="params">(<span class="keyword">int</span> count)</span> </span>&#123;</div><div class="line">    <span class="comment">//创建所需数量ImageView， 图片数量太多的话，该方案不适用</span></div><div class="line">    <span class="keyword">while</span> (count &gt; viewCache.size()) &#123;</div><div class="line">        viewCache.add(<span class="keyword">new</span> ImageView());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/24/连环杀手/" rel="next" title="连着看">
+                <i class="fa fa-chevron-left"></i> 连着看
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Huang Ming" />
+          <p class="site-author-name" itemprop="name">Huang Ming</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">1. 了解FlexboxLayout功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">2. 解决方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">3. 实现</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huang Ming</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
