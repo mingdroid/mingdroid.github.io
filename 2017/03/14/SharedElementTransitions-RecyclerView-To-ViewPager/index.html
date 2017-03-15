@@ -4,7 +4,7 @@
     <!-- Title -->
     
     <title>
-        Retrofit Post Encrypted Data | mingdroid
+        Shared Element Transitions with RecyclerView to ViewPager + 实现图片查看时下滑返回效果 | mingdroid
     </title>
     
     <!-- Favicons -->
@@ -40,7 +40,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://mingdroid.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Retrofit Post Encrypted Data | mingdroid">
+    <meta property="og:title" content="Shared Element Transitions with RecyclerView to ViewPager + 实现图片查看时下滑返回效果 | mingdroid">
     <meta property="og:description" content="null">
     
      <!--[if lte IE 9]>
@@ -215,7 +215,7 @@
 	<ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect"
 		for="post-toc-trigger-btn">
 			
-			
+			<ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">1.</span> <span class="post-toc-text">RecyclerView to ViewPager 动画实现</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">2.</span> <span class="post-toc-text">滑动返回实现</span></a></li></ol>
 		
 <!--			<li class="mdl-menu__item">Some Action</li>-->
 	</ul>
@@ -248,7 +248,7 @@
 		
 	
         <p class="article-headline-p">
-            Retrofit Post Encrypted Data
+            Shared Element Transitions with RecyclerView to ViewPager + 实现图片查看时下滑返回效果
         </p>
     </div>
 
@@ -266,7 +266,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Huang Ming</strong>
-        <span>9月 26, 2016</span>
+        <span>3月 14, 2017</span>
     </div>
     
     <div class="section-spacer"></div>
@@ -301,21 +301,21 @@
     
     
     <!-- Share Twitter -->
-    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Retrofit Post Encrypted Data&url=http://mingdroid.github.io//2016/09/26/retrofit-post-encrypted-data/index.html&via=Huang Ming" target="_blank">
+    <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Shared Element Transitions with RecyclerView to ViewPager + 实现图片查看时下滑返回效果&url=http://mingdroid.github.io//2017/03/14/SharedElementTransitions-RecyclerView-To-ViewPager/index.html&via=Huang Ming" target="_blank">
         <li class="mdl-menu__item">
             分享到 Twitter
         </li>
     </a>
     
     <!-- Share Google+ -->
-    <a class="post_share-link" href="https://plus.google.com/share?url=http://mingdroid.github.io//2016/09/26/retrofit-post-encrypted-data/index.html" target="_blank">
+    <a class="post_share-link" href="https://plus.google.com/share?url=http://mingdroid.github.io//2017/03/14/SharedElementTransitions-RecyclerView-To-ViewPager/index.html" target="_blank">
         <li class="mdl-menu__item">
             分享到 Google+
         </li>
     </a>
     
     <!-- Share Weibo -->
-    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Retrofit Post Encrypted Data&url=http://mingdroid.github.io//2016/09/26/retrofit-post-encrypted-data/index.html&pic=&searchPic=false&style=simple" target="_blank">
+    <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Shared Element Transitions with RecyclerView to ViewPager + 实现图片查看时下滑返回效果&url=http://mingdroid.github.io//2017/03/14/SharedElementTransitions-RecyclerView-To-ViewPager/index.html&pic=&searchPic=false&style=simple" target="_blank">
         <li class="mdl-menu__item">
             分享到微博
         </li>
@@ -327,49 +327,59 @@
                 <!-- Post Content -->
                 <div id="post-content" class="markdown-Github mdl-color-text--grey-700 mdl-card__supporting-text fade out">
 	
-		<blockquote>
-<p>数据协定为json格式</p>
+		<p>图片查看基本上都是RecyclerView 到 ViewPager 的实现。</p>
+<p><img src="/images/sharedElementTransition.gif" alt="SharedElementTransitions" title="gif"></p>
+<h1>RecyclerView to ViewPager 动画实现</h1>
+<p>下面介绍的便是RecyclerView 到 ViewPager的Shared Element transition动画，如朋友圈那样的。</p>
+<blockquote>
+<p>SourceActivity(RecyclerView) ---&gt; DestinationActivity(ViewPager)</p>
 </blockquote>
-<p>工作流程：</p>
-<ul>
-<li>
-<p>生成RSA密钥<br>
-服务端生成公钥私钥，把公钥给到客户端，用于加密。</p>
-</li>
-<li>
-<p>客户端加密<br>
-客户端使用公钥加密提交的数据，生成字节流 <code>byte[]</code></p>
-</li>
-<li>
-<p>提交<br>
-创建RequestBody，retrofit提交数据。</p>
-</li>
-<li>
-<p>服务器解密<br>
-服务端取得数据 <code>byte[]</code>，使用私钥解密数据。</p>
-</li>
-</ul>
-<p>客户端实现过程：</p>
-<ul>
-<li>
-<p>定义提交接口API
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">@POST(&quot;/&#123;path/to/post&#125;&quot;)</div><div class="line">Call&lt;TokenBean&gt; PostEncryptedData(@Path(&quot;path/to/post&quot;) String path, @Body RequestBody requestBody);</div></pre></td></tr></table></figure></p>
-</li>
-<li>
-<p>加密方法
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] encryptString(String initialText) &#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">byte</span>[] keyBytes = Base64.decode(RSA_KEY, Base64.DEFAULT);</div><div class="line">        X509EncodedKeySpec x509EncodedKeySpec = <span class="keyword">new</span> X509EncodedKeySpec(keyBytes);</div><div class="line">        KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</div><div class="line">        RSAPublicKey rsaPublicKey = (RSAPublicKey) keyFactory.generatePublic(x509EncodedKeySpec);</div><div class="line"></div><div class="line">        <span class="comment">// Encrypt the text</span></div><div class="line">        Cipher input = Cipher.getInstance(<span class="string">"RSA/ECB/PKCS1Padding"</span>, <span class="string">"AndroidOpenSSL"</span>);</div><div class="line">        input.init(Cipher.ENCRYPT_MODE, rsaPublicKey);</div><div class="line"></div><div class="line">        ByteArrayOutputStream outputStream = <span class="keyword">new</span> ByteArrayOutputStream();</div><div class="line">        CipherOutputStream cipherOutputStream = <span class="keyword">new</span> CipherOutputStream(</div><div class="line">                outputStream, input);</div><div class="line">        cipherOutputStream.write(initialText.getBytes(<span class="string">"UTF-8"</span>));</div><div class="line">        cipherOutputStream.close();</div><div class="line"></div><div class="line">        <span class="keyword">byte</span> [] vals = outputStream.toByteArray();</div><div class="line">        Log.d(<span class="string">"encryptString: "</span>, Base64.encodeToString(vals, Base64.DEFAULT));</div><div class="line">        <span class="keyword">return</span> vals;</div><div class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">        Log.e(TAG, Log.getStackTraceString(e));</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</li>
-<li>
-<p>构造RequestBody
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> RequestBody <span class="title">createEncryptedBody</span><span class="params">(Object object, Type type)</span> </span>&#123;</div><div class="line">    String json = <span class="keyword">new</span> Gson().toJson(object, type);</div><div class="line">    <span class="keyword">byte</span>[] bytes = EncryptUtils.encryptString(json);    <span class="comment">//加密</span></div><div class="line">    <span class="keyword">if</span> (bytes == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    MediaType mediaType = MediaType.parse(<span class="string">"application/octet-stream"</span>);</div><div class="line">    <span class="keyword">return</span> RequestBody.create(mediaType, bytes);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</li>
-<li>
-<p>提交
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">(String name, String password)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (call == <span class="keyword">null</span>) &#123;</div><div class="line">        HashMap&lt;String, String&gt; hashMap = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">2</span>);</div><div class="line">        hashMap.put(<span class="string">"name"</span>, name);</div><div class="line">        hashMap.put(<span class="string">"password"</span>, password);</div><div class="line">        RequestBody requestBody = RequestHelper.createEncryptedBody(hashMap, HashMap.class);</div><div class="line">        call = RestClient.getInstance().getEncryptService()</div><div class="line">                .PostEncryptedData(<span class="string">"path/to/login"</span>, requestBody);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</li>
-</ul>
+<p>先阅读官方的Shared Element Transitions<a href="https://developer.android.com/training/material/animations.html#Transitions" target="_blank" rel="external">文档</a><br>
+总共5个步骤：</p>
+<ol>
+<li>Enable window content transitions in your theme.</li>
+<li>Specify a shared elements transition in your style.</li>
+<li>Define your transition as an XML resource.</li>
+<li>Assign a common name to the shared elements in both layouts with the android:transitionName attribute.</li>
+<li>Use the ActivityOptions.makeSceneTransitionAnimation() method.</li>
+</ol>
+<blockquote>
+<p>在主题中启动 window content transitions动画， 设置Shared Element transition 动画， 路径 <code>res/values-v21/styles.xml</code><br>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowContentTransitions"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowSharedElementEnterTransition"</span>&gt;</span>@transition/change_image_transform<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowSharedElementExitTransition"</span>&gt;</span>@transition/change_image_transform<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>定义 Shared Element Transition 动画， 路径 <code>res/transition/change_image_transform.xml</code><br>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">transitionSet</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">changeBounds</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">changeImageTransform</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">transitionSet</span>&gt;</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>RecyclerView, ViewPager都用到Adpter，自然不能在xml布局中设置 transitionName 了。<br>
+利用 View.setTransitionName()动态设置，在Adapter中绑定视图时设置transitionName。</p>
 <hr>
-<p>That's all.</p>
+<p>做了初步了解后，应该知道Shared Element transition动画是需要一个一对一的关系来确定动画的。<br>
+下面的步骤也不可少：</p>
+<p>一、 每个View应该有唯一 transitionName，不做详解。</p>
+<p>二、 需要等待 ViewPager 开始显示图片后才启用转场动画。</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//简化代码</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DestinationActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;</div><div class="line">            <span class="comment">//延迟动画</span></div><div class="line">            postponeEnterTransition();</div><div class="line">        &#125;</div><div class="line">    &#125;  </div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhotoAdapter</span> <span class="keyword">extends</span> <span class="title">PagerAdapter</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">instantiateItem</span><span class="params">(ViewGroup container, <span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">            ImageView imageView = <span class="keyword">new</span> ImageView(container.getContext());</div><div class="line">            <span class="comment">//....省略</span></div><div class="line">            <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;</div><div class="line">                String name = container.getContext()</div><div class="line">                        .getString(R.string.transition_name, adapterPosition, position);</div><div class="line">                imageView.setTransitionName(name);</div><div class="line">                <span class="keyword">if</span> (position == current) &#123;</div><div class="line">                    <span class="comment">//初始化当前显示的ImageView时，设置一个callback开启转场动画</span></div><div class="line">                    setStartPostTransition(imageView);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// @TargetApi(21)</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setStartPostTransition</span><span class="params">(<span class="keyword">final</span> View sharedView)</span> </span>&#123;</div><div class="line">        sharedView.getViewTreeObserver().addOnPreDrawListener(</div><div class="line">                <span class="keyword">new</span> ViewTreeObserver.OnPreDrawListener() &#123;</div><div class="line">                    <span class="comment">// @Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreDraw</span><span class="params">()</span> </span>&#123;</div><div class="line">                        sharedView.getViewTreeObserver().removeOnPreDrawListener(<span class="keyword">this</span>);</div><div class="line">                        startPostponedEnterTransition();</div><div class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre>
+<p>三、 ViewPager 中左右滑动后返回时要通知 SourceActivity.class。</p>
+<blockquote>
+<p>SourceActivity.onActivityReenter();<br>
+startActivityForResult();<br>
+setResult(RESULT_OK, intent);<br>
+这三个函数配合即可在 SourceActivity.class 中获取到变动通知。</p>
+</blockquote>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// @Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityReenter</span><span class="params">(<span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onActivityReenter(resultCode, data);</div><div class="line">    <span class="keyword">if</span> (resultCode == RESULT_OK &amp;&amp; data != <span class="keyword">null</span>) &#123;</div><div class="line">        exitPosition = data.getIntExtra(<span class="string">"exit_position"</span>, enterPosition);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>四、 既然有所变动，那么原先一对一的关系有所变动了，下面两个函数可处理这种情况：</p>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DestinationActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">     <span class="comment">//只有在ViewPager左右滑动后才需要在关闭时设置callback</span></div><div class="line">     <span class="comment">//view 为转场对象 ImageView</span></div><div class="line">    <span class="comment">//  @TargetApi(21)</span></div><div class="line">     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setSharedElementCallback</span><span class="params">(<span class="keyword">final</span> View view)</span> </span>&#123;</div><div class="line">         setEnterSharedElementCallback(<span class="keyword">new</span> SharedElementCallback() &#123;</div><div class="line">            <span class="comment">//  @Override</span></div><div class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMapSharedElements</span><span class="params">(List&lt;String&gt; names, Map&lt;String, View&gt; sharedElements)</span> </span>&#123;</div><div class="line">                 names.clear();</div><div class="line">                 sharedElements.clear();</div><div class="line">                 names.add(view.getTransitionName());</div><div class="line">                 sharedElements.put(view.getTransitionName(), view);</div><div class="line">             &#125;</div><div class="line">         &#125;);</div><div class="line">     &#125;   </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//exitPosition 是在 SourceActivity.onActivityReenter() 取得具体值的。</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SourceActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">      <span class="comment">// @TargetApi(21)</span></div><div class="line">      <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setCallback</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> enterPosition)</span> </span>&#123;</div><div class="line">          <span class="keyword">this</span>.enterPosition = enterPosition;</div><div class="line">          setExitSharedElementCallback(<span class="keyword">new</span> SharedElementCallback() &#123;</div><div class="line">              <span class="comment">// @Override</span></div><div class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMapSharedElements</span><span class="params">(List&lt;String&gt; names, Map&lt;String, View&gt; sharedElements)</span> </span>&#123;</div><div class="line">                  <span class="keyword">if</span> (exitPosition != enterPosition &amp;&amp; names.size() &gt; <span class="number">0</span> &amp;&amp; exitPosition &lt; sharedViews.length) &#123;</div><div class="line">                      names.clear();</div><div class="line">                      sharedElements.clear();</div><div class="line">                      View view = sharedViews[exitPosition];</div><div class="line">                      names.add(view.getTransitionName());</div><div class="line">                      sharedElements.put(view.getTransitionName(), view);</div><div class="line">                  &#125;</div><div class="line">                  setExitSharedElementCallback((SharedElementCallback) <span class="keyword">null</span>);</div><div class="line">                  sharedViews = <span class="keyword">null</span>;</div><div class="line">              &#125;</div><div class="line">          &#125;);</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1>滑动返回实现</h1>
+<ol>
+<li>为 DestinationActivity.class 设置透明背景主题, 路径 <code>/res/values/styles.xml</code></li>
+</ol>
+<p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme.Transparent"</span> <span class="attr">parent</span>=<span class="string">"AppTheme"</span>&gt;</span><span class="xml"></span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowBackground"</span>&gt;</span>@android:color/transparent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowIsTranslucent"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>定义一个 DismissFrameLayout 用来包裹 ImageView, 实现手势检测， 动态更新 ImageView 位置, 动态设置 DestinationActivity.class 背景透明度。</li>
+</ol>
+<hr>
+<p><strong>Code can tell you everything</strong></p>
 
 	
 	
@@ -390,21 +400,13 @@
     
     <!-- Prev Nav -->
     
-        <a href="/2016/10/08/Way-of-starting-thread-Talking-AsyncTask/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
     
-        <a href="/2016/09/22/MVP框架搭建-1/" id="post_nav-older" class="next-content">
+        <a href="/2016/11/08/FlexboxLayout实现不规则图片墙/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
