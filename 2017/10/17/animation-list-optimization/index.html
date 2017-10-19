@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Tue Oct 17 2017 15:54:57 GMT+0800" />
-        <meta property="article:modified_time" content="Tue Oct 17 2017 18:20:52 GMT+0800" />
+        <meta property="article:modified_time" content="Tue Oct 17 2017 18:27:27 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://mingdroid.github.io/2017/10/17/animation-list-optimization/index.html",
     "headline": "帧动画优化思路",
     "datePublished": "Tue Oct 17 2017 15:54:57 GMT+0800",
-    "dateModified": "Tue Oct 17 2017 18:20:52 GMT+0800",
+    "dateModified": "Tue Oct 17 2017 18:27:27 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Huang Ming",
@@ -492,8 +492,8 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>Android 帧动画（Frame Animation）的使用十分简单
-定义 Animation-List 资源 res/anim/rocket.xml</p>
+        <p>Android 帧动画（Frame Animation）的使用十分简单</p>
+<p>定义 Animation-List 资源 res/anim/rocket.xml</p>
 <p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">animation-list</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">    <span class="attr">android:oneshot</span>=<span class="string">"false"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/rocket_thrust1"</span> <span class="attr">android:duration</span>=<span class="string">"200"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/rocket_thrust2"</span> <span class="attr">android:duration</span>=<span class="string">"200"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/rocket_thrust3"</span> <span class="attr">android:duration</span>=<span class="string">"200"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">animation-list</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <p>设置到 ImageView
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ImageView rocketImage = (ImageView) findViewById(R.id.rocket_image);</div><div class="line">rocketImage.setBackgroundResource(R.drawable.rocket_thrust);</div><div class="line"></div><div class="line">rocketAnimation = (AnimationDrawable) rocketImage.getBackground();</div><div class="line">rocketAnimation.start();</div></pre></td></tr></table></figure></p>
@@ -509,8 +509,8 @@
 然而，使用inBitmap有一些限制，特别是在Android 4.4 (API level 19)之前，只有同等大小的位图才可以被重用。详情请查看inBitmap文档。</p>
 </blockquote>
 <p>使用该技术，在播放动画的时候只需要一份内存就可以了，重复使用 Bitmap 内存，连内存抖动都不会发生。</p>
-<p>所以我的做法是自己实现动画播放： load resource -&gt; decode(inBitmap) -&gt; set to ImageView -&gt; delay -&gt; load resource -&gt; ...
-要让动画流畅，需要确保 load resource 与 decode 的工作在16毫秒内完成，(<a href="http://hukai.me/android-performance-patterns/" target="_blank" rel="external">16ms 来源</a>)</p>
+<p>所以我的做法是自己实现动画播放： load resource -&gt; decode(inBitmap) -&gt; set to ImageView -&gt; delay -&gt; load resource -&gt; ...</p>
+<p>要让动画流畅，需要确保 load resource 与 decode 的工作在16毫秒内完成，(<a href="http://hukai.me/android-performance-patterns/" target="_blank" rel="external">16ms 来源</a>)</p>
 <p>16ms 优化思路：</p>
 <ul>
 <li>load resource : 如果所有资源的大小加起来只有几Mb，则可以将资源缓存起来，事先把所有资源加载到内存，那后面解码的话将会很快。</li>
@@ -537,6 +537,14 @@
             <!-- Post Prev & Next Nav -->
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
+    
+        <a href="/2017/10/19/learn-okio-in-my-way/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
     
 
     <!-- Section Spacer -->
@@ -636,7 +644,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         

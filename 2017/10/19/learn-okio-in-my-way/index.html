@@ -37,7 +37,7 @@
     
     <title>
         
-            归档: 2017/3 | 
+            Read source code of Okio | 
         
         mingdroid
     </title>
@@ -231,15 +231,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://mingdroid.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2017/3 | mingdroid">
+    <meta property="og:title" content="Read source code of Okio | mingdroid">
     <meta property="og:image" content="http://mingdroid.github.io/img/favicon.png" />
     <meta property="og:description" content="">
     
 
     
+        <meta property="article:published_time" content="Thu Oct 19 2017 00:02:59 GMT+0800" />
+        <meta property="article:modified_time" content="Thu Oct 19 2017 22:26:52 GMT+0800" />
+    
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="归档: 2017/3 | mingdroid">
+    <meta name="twitter:title" content="Read source code of Okio | mingdroid">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="http://mingdroid.github.io/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -247,13 +250,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://mingdroid.github.io/archives/2017/03/index.html" />
+        <link rel="canonical" href="http://mingdroid.github.io/2017/10/19/learn-okio-in-my-way/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://mingdroid.github.io/2017/10/19/learn-okio-in-my-way/index.html",
+    "headline": "Read source code of Okio",
+    "datePublished": "Thu Oct 19 2017 00:02:59 GMT+0800",
+    "dateModified": "Thu Oct 19 2017 22:26:52 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Huang Ming",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "mingdroid",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "null",
+    "description": "",
+}
+</script>
 
 
     
@@ -295,94 +328,250 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">1.</span> <span class="post-toc-text">装饰模式</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">2.</span> <span class="post-toc-text">okio的使用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">3.</span> <span class="post-toc-text">扩展</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/03/14/SharedElementTransitions-RecyclerView-To-ViewPager/">Shared Element Transitions with RecyclerView to ViewPager + 滑动返回</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            实现朋友圈图片查看的转场动画+滑动返回，RecyclerView to ViewPager。
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/03/14/SharedElementTransitions-RecyclerView-To-ViewPager/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Huang Ming's avatar">
-            </div>
-            <div>
-                <strong>Huang Ming</strong>
-                <span>3月 14, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                Read source code of Okio
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Huang Ming</strong>
+        <span>10月 19, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Read source code of Okio&url=http://mingdroid.github.io/2017/10/19/learn-okio-in-my-way/index.html&pic=http://mingdroid.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Read source code of Okio&url=http://mingdroid.github.io/2017/10/19/learn-okio-in-my-way/index.html&via=Huang Ming" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://mingdroid.github.io/2017/10/19/learn-okio-in-my-way/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://mingdroid.github.io/2017/10/19/learn-okio-in-my-way/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>对 Okio 源码作分析的文章已有很多，想深刻理解 Okio 还是要自己看一遍源码。<br>
+Okio代码不多，整个框架涉及的源文件有几个，可以先阅读它们；</p>
+<blockquote>
+<p>Okio.java<br>
+Source.java<br>
+BufferedSource.java<br>
+RealBufferedSource.java<br>
+Sink.java<br>
+BufferedSink.java<br>
+RealBufferedSink.java<br>
+Buffer.java</p>
+</blockquote>
+<p>下图来自<a href="https://juejin.im/post/5856680c8e450a006c6474bd" target="_blank" rel="external">https://juejin.im/post/5856680c8e450a006c6474bd</a></p>
+<p><img src="/images/okio.png" alt="Okio主要结构" title="okio"></p>
+<h1>装饰模式</h1>
+<p>先学习一下装饰模式，<a href="https://zh.wikipedia.org/wiki/%E4%BF%AE%E9%A5%B0%E6%A8%A1%E5%BC%8F" target="_blank" rel="external">wiki</a></p>
+<p><img src="/images/decorator_diagram.png" alt="decorator_diagram" title="decorator_diagram"></p>
+<p>Okio中应用了装饰模式</p>
+<p><img src="/images/decorator_diagram_okio.png" alt="decorator_diagram_okio" title="decorator_diagram_okio"></p>
+<p>RealBufferedSource 就是装饰器，RealBufferedSource 的代码十分简单，有两个属性Buffer、Source。
+Buffer 是一个十分复杂实现类，包括了缓存、实际上的读写操作；<br>
+那么谁实现了从 InputStream 复制数据到 Buffer 的缓存中呢？
+是 Source 的实现类，你可以自己实现，也可以使用Okio 提供的默认实现: 匿名Source类。</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">final class RealBufferedSource implements BufferedSource &#123;</div><div class="line">  public final Buffer buffer = new Buffer();</div><div class="line">  public final Source source;</div><div class="line">  boolean closed;</div><div class="line"></div><div class="line">  RealBufferedSource(Source source) &#123;</div><div class="line">    if (source == null) throw new NullPointerException(&quot;source == null&quot;);</div><div class="line">    this.source = source;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  @Override public byte readByte() throws IOException &#123;</div><div class="line">    require(1);</div><div class="line">    return buffer.readByte();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1>okio的使用</h1>
+<p>示例： 向文件 out.txt 输入 “Hello, Okio”, 复制 out.txt 到 copy.txt;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">private void okio() &#123;</div><div class="line">    try &#123;</div><div class="line">        File copy = new File(Environment.getExternalStorageDirectory(), &quot;copy.txt&quot;);</div><div class="line">        File out = new File(Environment.getExternalStorageDirectory(), &quot;out.txt&quot;);</div><div class="line">        BufferedSink bufferedSink = Okio.buffer(Okio.sink(out));</div><div class="line">        bufferedSink.writeString(&quot;Hello, Okio&quot;, Charset.forName(&quot;UTF-8&quot;));</div><div class="line">        bufferedSink.close();</div><div class="line"></div><div class="line">        BufferedSource bufferedSource = Okio.buffer(Okio.source(out));</div><div class="line">        BufferedSink bufferedSink1 = Okio.buffer(Okio.sink(copy));</div><div class="line">        bufferedSink1.writeAll(bufferedSource);</div><div class="line">        bufferedSink1.close();</div><div class="line">        bufferedSource.close();</div><div class="line"></div><div class="line">    &#125; catch (IOException e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">        //close source or sink yourself</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>step 1: Okio.source();
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">/** Returns a source that reads from &#123;@code file&#125;. */</div><div class="line">public static Source source(File file) throws FileNotFoundException &#123;</div><div class="line">  if (file == null) throw new IllegalArgumentException(&quot;file == null&quot;);</div><div class="line">  return source(new FileInputStream(file));</div><div class="line">&#125;</div><div class="line"></div><div class="line">/** Returns a source that reads from &#123;@code in&#125;. */</div><div class="line">public static Source source(InputStream in) &#123;</div><div class="line">  return source(in, new Timeout());</div><div class="line">&#125;</div><div class="line"></div><div class="line">private static Source source(final InputStream in, final Timeout timeout) &#123;</div><div class="line">  if (in == null) throw new IllegalArgumentException(&quot;in == null&quot;);</div><div class="line">  if (timeout == null) throw new IllegalArgumentException(&quot;timeout == null&quot;);</div><div class="line"></div><div class="line">  return new Source() &#123;</div><div class="line">    @Override public long read(Buffer sink, long byteCount) throws IOException &#123;</div><div class="line">      if (byteCount &lt; 0) throw new IllegalArgumentException(&quot;byteCount &lt; 0: &quot; + byteCount);</div><div class="line">      if (byteCount == 0) return 0;</div><div class="line">      try &#123;</div><div class="line">        timeout.throwIfReached();</div><div class="line">        Segment tail = sink.writableSegment(1);</div><div class="line">        int maxToCopy = (int) Math.min(byteCount, Segment.SIZE - tail.limit);</div><div class="line">        int bytesRead = in.read(tail.data, tail.limit, maxToCopy);</div><div class="line">        if (bytesRead == -1) return -1;</div><div class="line">        tail.limit += bytesRead;</div><div class="line">        sink.size += bytesRead;</div><div class="line">        return bytesRead;</div><div class="line">        &#125; catch (AssertionError e) &#123;</div><div class="line">          if (isAndroidGetsocknameError(e)) throw new IOException(e);</div><div class="line">          throw e;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      @Override public void close() throws IOException &#123;</div><div class="line">        in.close();</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      @Override public Timeout timeout() &#123;</div><div class="line">        return timeout;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      @Override public String toString() &#123;</div><div class="line">        return &quot;source(&quot; + in + &quot;)&quot;;</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>第一步，得到一个输入源，返回 Source 实现类，Okio.source() 返回一个匿名实现类 AnonymousSource，
+当然我们也可以自己实现。</p>
+<p>step2: Okio.buffer()</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public static BufferedSource buffer(Source source) &#123;</div><div class="line">  return new RealBufferedSource(source);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>第二步，得到一个 BufferedSource，实际上是 BufferedSource 的一个实现类 RealBufferedSource。
+RealBufferedSource 就是装饰器，所有的读取工作实际上是由Buffer类实现。</p>
+<h1>扩展</h1>
+<p>如果输入源 InputStream 是已压缩/加密的数据，那怎么读取到解压/解密的数据呢？<br>
+Okio 提供的扩展是可以根据需求实现Source类，可以阅读GzipSource类来学习，该类会解码 Gzip 数据，让我们读取到的数据就是已解压的。</p>
+<p>Okio, Fantastic!</p>
+<p>使用示例：</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">try &#123;</div><div class="line">    File file = new File(Environment.getExternalStorageDirectory(), &quot;in.gz&quot;);</div><div class="line">    BufferedSource bufferedSource = Okio.buffer(new GzipSource(Okio.source(file)));</div><div class="line">    String s = bufferedSource.readString(Charset.forName(&quot;UTF-8&quot;));</div><div class="line">    Log.d(&quot;okio&quot;, &quot;-&gt;&quot; + s);</div><div class="line">&#125; catch (IOException e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2017/10/17/animation-list-optimization/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
