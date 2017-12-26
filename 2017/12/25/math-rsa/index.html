@@ -37,7 +37,7 @@
     
     <title>
         
-            about | 
+            入门到放弃之RSA的数学基础 | 
         
         mingdroid
     </title>
@@ -231,15 +231,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://mingdroid.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="about | mingdroid">
+    <meta property="og:title" content="入门到放弃之RSA的数学基础 | mingdroid">
     <meta property="og:image" content="http://mingdroid.github.io/img/favicon.png" />
     <meta property="og:description" content="">
     
 
     
+        <meta property="article:published_time" content="Mon Dec 25 2017 15:19:05 GMT+0800" />
+        <meta property="article:modified_time" content="Tue Dec 26 2017 17:25:33 GMT+0800" />
+    
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="about | mingdroid">
+    <meta name="twitter:title" content="入门到放弃之RSA的数学基础 | mingdroid">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="http://mingdroid.github.io/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -247,13 +250,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://mingdroid.github.io/about/index.html" />
+        <link rel="canonical" href="http://mingdroid.github.io/2017/12/25/math-rsa/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://mingdroid.github.io/2017/12/25/math-rsa/index.html",
+    "headline": "入门到放弃之RSA的数学基础",
+    "datePublished": "Mon Dec 25 2017 15:19:05 GMT+0800",
+    "dateModified": "Tue Dec 26 2017 17:25:33 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Huang Ming",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "mingdroid",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "null",
+    "description": "",
+}
+</script>
 
 
     
@@ -297,6 +330,39 @@
 
                     <!-- Post TOC -->
 
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">1.</span> <span class="post-toc-text">公钥与私钥的产生</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">2.</span> <span class="post-toc-text">基础</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">3.</span> <span class="post-toc-text">加密、解密</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">4.</span> <span class="post-toc-text">RSA的应用：数字证书</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">5.</span> <span class="post-toc-text">最后</span></a></li></ol>
+    </ul>
+    
+
+
+
 
 <!-- Layouts -->
 
@@ -323,7 +389,7 @@
         
     
             <p class="article-headline-p">
-                about
+                入门到放弃之RSA的数学基础
             </p>
         </div>
 
@@ -342,7 +408,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Huang Ming</strong>
-        <span>9月 21, 2016</span>
+        <span>12月 25, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -374,7 +440,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=about&url=http://mingdroid.github.io/about/index.html&pic=http://mingdroid.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=入门到放弃之RSA的数学基础&url=http://mingdroid.github.io/2017/12/25/math-rsa/index.html&pic=http://mingdroid.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -383,7 +449,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=about&url=http://mingdroid.github.io/about/index.html&via=Huang Ming" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=入门到放弃之RSA的数学基础&url=http://mingdroid.github.io/2017/12/25/math-rsa/index.html&via=Huang Ming" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -392,7 +458,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://mingdroid.github.io/about/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://mingdroid.github.io/2017/12/25/math-rsa/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -401,7 +467,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://mingdroid.github.io/about/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://mingdroid.github.io/2017/12/25/math-rsa/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -426,20 +492,66 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <h1>About me</h1>
-<p>Archlinux教徒<br>
-喜欢骑行</p>
-<h1>Github</h1>
-<p><a href="https://www.github.com/mingdroid" target="_blank" rel="external">mingdroid</a><br>
-<a href="https://www.github.com/hm279" target="_blank" rel="external">hm279</a></p>
-<h1>Blog</h1>
-<p>建立了两个博客，另外一个是：<a href="http://hm279.github.io/" target="_blank" rel="external">http://hm279.github.io/</a></p>
-<h1>Email</h1>
-<p>kenhm808@gmail.com</p>
-<h1>Location</h1>
-<p>深圳</p>
-<h1>Wechat</h1>
-<p><img src="/images/wechat.jpg" alt="wechat"></p>
+        <h1>公钥与私钥的产生</h1>
+<p>From wiki <a href="https://zh.wikipedia.org/wiki/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95" target="_blank" rel="external">RSA加密算法</a>：</p>
+<p>假设Alice想要通过一个不可靠的媒体接收Bob的一条私人消息。她可以用以下的方式来产生一个公钥和一个私钥：</p>
+<ol>
+<li>随意选择两个大的质数 p 和 q， p不等于 q，计算 N=pq。</li>
+<li>根据欧拉函数，求得<img src="/images/rsa_totient_function.svg" alt="totient function" title="totient function"></li>
+<li>选择一个小于 r 的整数 e，使 e 与 r 互质。并求得 e 关于 r 的模反元素，命名为 d（求 d令 <img src="/images/rsa_mod.svg" alt="mod" title="mod"> ）。（模反元素存在，当且仅当 e 与 r 互质）</li>
+<li>将 p 和 q 的记录销毁。</li>
+</ol>
+<p>(N,e)是公钥，(N,d)是私钥。Alice将她的公钥 (N,e)传给Bob，而将她的私钥 (N,d)藏起来。</p>
+<h1>基础</h1>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0" target="_blank" rel="external">欧拉函数</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86_(%E6%95%B0%E8%AE%BA)" target="_blank" rel="external">欧拉定理</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E6%A8%A1%E5%8F%8D%E5%85%83%E7%B4%A0" target="_blank" rel="external">模反元素</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E5%90%8C%E9%A4%98" target="_blank" rel="external">同余</a></p>
+<p>上面是 RSA 所涉及到的数学基础。 慢慢啃吧，啃着啃着你就入门了，啃着啃着啃着你就放弃了。</p>
+<h1>加密、解密</h1>
+<p>加密计算公式： <img src="/images/rsa_encryption.svg" alt="encryption" title="encryption"></p>
+<p>解密计算公式： <img src="/images/rsa_decrypt.svg" alt="decrypt" title="decrypt"></p>
+<p>n 为等待加密数据， c 为加密后数据。<br>
+对于上面不认识的符号≡请看 <a href="https://zh.wikipedia.org/wiki/%E5%90%8C%E9%A4%98" target="_blank" rel="external">同余</a></p>
+<h1>RSA的应用：数字证书</h1>
+<p>什么是数字证书？<br>
+我们先来看看 RSA 的逆向过程， 我们假设 c 为等待加密数据， n 为加密后数据。<br>
+根据：<br>
+‘解密’公式： <img src="/images/rsa_decrypt.svg" alt="decrypt" title="decrypt"><br>
+‘加密’公式： <img src="/images/rsa_encryption.svg" alt="encryption" title="encryption"><br>
+得到：<br>
+签名公式： n ≡ c^d (mod N)<br>
+验证公式： c ≡ n^e (mod N)<br>
+我们把‘解密’叫做签名，‘加密’叫做验证， c 为待签名数据， n 为签名后数据。</p>
+<p>实际操作一般如下：<br>
+1.signature:  (N, d)</p>
+<blockquote>
+<p>c = hash(data)<br>
+n = sign(c) = c^d (mod N)<br>
+(n 就是签名)</p>
+</blockquote>
+<p>2.send (data,n)<br>
+3.check:  (N, e)</p>
+<blockquote>
+<p>c = hash(data)<br>
+c == check(n) = n^e (mod N)</p>
+</blockquote>
+<p>私钥永远是私有的，用私钥签名的数据只有对应的公钥才能校验成功，所以上面的过程可以用以校验你的数据是否被修改。<br>
+你的公钥在传输过程中可能被替换掉，那么剩下的问题就是如何证明你的公钥就是你的公钥呢？<br>
+CA（Certificate Authority）的工作就是证明你的公钥就是你的公钥， CA 的工作原理也是应用 RSA 的逆向过程，CA 也有公钥密钥。</p>
+<p><strong><em>数字证书：包含了公钥信息、拥有者身份信息（主体）、以及数字证书认证机构（发行者）对这份文件的数字签名，以保证这个文件的整体内容正确无误</em></strong></p>
+<p>数字证书、CA、HTTPS:<br>
+服务器创建公钥私钥，然后去 CA 申请数字证书，其实就是把服务器的公钥与一些其他信息发送给 CA，CA 用她的私钥给你签名。<br>
+浏览器已安装了 CA 的公钥。<br>
+https 连接的建立： 服务器发送证书给浏览器，浏览器用 CA 的公钥验证证书，即证明你的公钥就是你的公钥。</p>
+<p>细节可以阅读　wiki<br>
+<a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6%E8%AE%A4%E8%AF%81%E6%9C%BA%E6%9E%84" target="_blank" rel="external">CA</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E5%85%AC%E9%96%8B%E9%87%91%E9%91%B0%E8%AA%8D%E8%AD%89" target="_blank" rel="external">数字证书</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">HTTPS</a></p>
+<h1>最后</h1>
+<p>Amazing math!!!
+万变不离其中，你看认识 RSA 后你可以了解到那么多扩展知识。</p>
+<p>找工作啊。。。。。。。。。。。。。。。</p>
 
         
     
@@ -465,6 +577,14 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2017/10/19/learn-okio-in-my-way/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
@@ -626,6 +746,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
