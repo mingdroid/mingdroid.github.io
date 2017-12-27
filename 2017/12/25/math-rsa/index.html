@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Mon Dec 25 2017 15:19:05 GMT+0800" />
-        <meta property="article:modified_time" content="Tue Dec 26 2017 17:34:46 GMT+0800" />
+        <meta property="article:modified_time" content="Wed Dec 27 2017 19:35:23 GMT+0800" />
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://mingdroid.github.io/2017/12/25/math-rsa/index.html",
     "headline": "入门到放弃之RSA的数学基础",
     "datePublished": "Mon Dec 25 2017 15:19:05 GMT+0800",
-    "dateModified": "Tue Dec 26 2017 17:34:46 GMT+0800",
+    "dateModified": "Wed Dec 27 2017 19:35:23 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Huang Ming",
@@ -357,7 +357,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">1.</span> <span class="post-toc-text">公钥与私钥的产生</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">2.</span> <span class="post-toc-text">基础</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">3.</span> <span class="post-toc-text">加密、解密</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">4.</span> <span class="post-toc-text">RSA的应用：数字证书</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">5.</span> <span class="post-toc-text">最后</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">1.</span> <span class="post-toc-text">公钥与私钥的产生</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">2.</span> <span class="post-toc-text">加密、解密</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">3.</span> <span class="post-toc-text">基础</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">4.</span> <span class="post-toc-text">RSA的应用：数字证书</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#undefined"><span class="post-toc-number">5.</span> <span class="post-toc-text">最后</span></a></li></ol>
     </ul>
     
 
@@ -502,17 +502,48 @@
 <li>将 p 和 q 的记录销毁。</li>
 </ol>
 <p>(N,e)是公钥，(N,d)是私钥。Alice将她的公钥 (N,e)传给Bob，而将她的私钥 (N,d)藏起来。</p>
-<h1>基础</h1>
-<p><a href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0" target="_blank" rel="external">欧拉函数</a><br>
-<a href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86_(%E6%95%B0%E8%AE%BA)" target="_blank" rel="external">欧拉定理</a><br>
-<a href="https://zh.wikipedia.org/wiki/%E6%A8%A1%E5%8F%8D%E5%85%83%E7%B4%A0" target="_blank" rel="external">模反元素</a><br>
-<a href="https://zh.wikipedia.org/wiki/%E5%90%8C%E9%A4%98" target="_blank" rel="external">同余</a></p>
-<p>上面是 RSA 所涉及到的数学基础。 慢慢啃吧，啃着啃着你就入门了，啃着啃着啃着你就放弃了。</p>
 <h1>加密、解密</h1>
 <p>加密计算公式： <img src="/images/rsa_encryption.svg" alt="encryption" title="encryption"></p>
 <p>解密计算公式： <img src="/images/rsa_decrypt.svg" alt="decrypt" title="decrypt"></p>
 <p>n 为等待加密数据， c 为加密后数据。<br>
 对于上面不认识的符号≡请看 <a href="https://zh.wikipedia.org/wiki/%E5%90%8C%E9%A4%98" target="_blank" rel="external">同余</a></p>
+<h1>基础</h1>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0" target="_blank" rel="external">欧拉函数</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86_(%E6%95%B0%E8%AE%BA)" target="_blank" rel="external">欧拉定理</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E6%A8%A1%E5%8F%8D%E5%85%83%E7%B4%A0" target="_blank" rel="external">模反元素</a><br>
+<a href="https://zh.wikipedia.org/wiki/%E5%90%8C%E9%A4%98" target="_blank" rel="external">同余</a></p>
+<p>上面是 RSA 所涉及到的数学基础。 慢慢啃吧，啃着啃着你就入门了，啃着啃着啃着你就放弃了。
+先是看看 <em>深入浅出密码学</em>， 咦~好多数学基础，好吧，继续看看 <em>数论概论</em>，咦~我想干什么来着？</p>
+<p>由加密公式怎么推导出解密公式呢？<br>
+加密公式</p>
+<blockquote>
+<p>c ≡ n^e (mod N)</p>
+</blockquote>
+<p><strong><em>同余</em></strong> 有以下性质</p>
+<blockquote>
+<p>a ≡ b (mod m)     ------------&gt;     a^n ≡ b^n (mod m)</p>
+</blockquote>
+<p>所以加密公式可以变形为</p>
+<blockquote>
+<p>(1). c^d ≡ n^ed (mod N)</p>
+</blockquote>
+<p>已知 ed ≡ (1 mod r), 即　ed = 1 + hφ(N)</p>
+<blockquote>
+<p>(2). n^ed = n^(1 + hφ(N)) = n * (n^φ(N))^h</p>
+</blockquote>
+<p>把(2)代入(1)得</p>
+<blockquote>
+<p>n^ed (mod N) ≡ n * (n^φ(N))^h (mod N)</p>
+</blockquote>
+<p>由欧拉定理 n^φ(N) ≡ 1 (mod N) 得</p>
+<blockquote>
+<p>n * (n^φ(N))^h (mod N) ≡ n * 1^h (mod N) ≡ n (mod N)</p>
+</blockquote>
+<p>上面懵逼了吧，相关关键字 <strong><em>模约简</em></strong><br>
+最后</p>
+<blockquote>
+<p>c^d ≡ n (mod N)</p>
+</blockquote>
 <h1>RSA的应用：数字证书</h1>
 <p>什么是数字证书？<br>
 我们先来看看 RSA 的逆向过程， 我们假设 c 为等待加密数据， n 为加密后数据。<br>
