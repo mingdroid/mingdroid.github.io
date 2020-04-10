@@ -523,9 +523,9 @@
 </blockquote>
 <hr>
 <h1>获取Request Token</h1>
-<p>示例来源：<a href="https://tools.ietf.org/html/rfc5849#section-1.2" target="_blank" rel="external">rfc5849</a><br>
+<p>示例来源：<a href="https://tools.ietf.org/html/rfc5849#section-1.2" target="_blank" rel="noopener">rfc5849</a><br>
 http请求示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">POST /oauth/request_token HTTP/1.1</div><div class="line">Host: www.example.com  </div><div class="line">Authorization: OAuth oauth_consumer_key=&quot;dpf43f3p2l4k3l03&quot;,  </div><div class="line">      oauth_signature_method=&quot;HMAC-SHA1&quot;,  </div><div class="line">      oauth_timestamp=&quot;137131200&quot;,  </div><div class="line">      oauth_nonce=&quot;wIjqoS&quot;,  </div><div class="line">      oauth_callback=&quot;http%3A%2F%2Fprinter.example.com%2Fready&quot;,  </div><div class="line">      oauth_signature=&quot;74KNZJeDHnMBp0EMJ9ZHt%2FXKycU%3D&quot;，  </div><div class="line">      oauth_version=&quot;1.0a&quot;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST /oauth/request_token HTTP/1.1</span><br><span class="line">Host: www.example.com  </span><br><span class="line">Authorization: OAuth oauth_consumer_key=&quot;dpf43f3p2l4k3l03&quot;,  </span><br><span class="line">      oauth_signature_method=&quot;HMAC-SHA1&quot;,  </span><br><span class="line">      oauth_timestamp=&quot;137131200&quot;,  </span><br><span class="line">      oauth_nonce=&quot;wIjqoS&quot;,  </span><br><span class="line">      oauth_callback=&quot;http%3A%2F%2Fprinter.example.com%2Fready&quot;,  </span><br><span class="line">      oauth_signature=&quot;74KNZJeDHnMBp0EMJ9ZHt%2FXKycU%3D&quot;，  </span><br><span class="line">      oauth_version=&quot;1.0a&quot;</span><br></pre></td></tr></table></figure></p>
 <p>oauth_consumer_key是注册你的应用后获得。<br>
 oauth_signature_method=&quot;HMAC-SHA1&quot;，仅支持HMAC-SHA1。<br>
 oauth_timestamp是当前时间戳，以秒为单位。<br>
@@ -534,34 +534,34 @@ oauth_callback在注册你的应用时需要提供的回调URL，需要URLEncode
 oauth_signature签名结果，如何签名最后一节讨论，需要URLEncode。<br>
 oauth_version协议版本号。</p>
 <p>http返回示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line"></div><div class="line">oauth_token=hh5s93j4hdidpola&amp;oauth_token_secret=hdhd0244k9j7ao03&amp;</div><div class="line">oauth_callback_confirmed=true</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">oauth_token=hh5s93j4hdidpola&amp;oauth_token_secret=hdhd0244k9j7ao03&amp;</span><br><span class="line">oauth_callback_confirmed=true</span><br></pre></td></tr></table></figure></p>
 <p>oauth_token：未授权的token。<br>
 oauth_token_secret：参与第三步的签名。<br>
 oauth_callback_confirmed：对oauth_callback的确认信号 (true/false)。</p>
 <hr>
 <h1>请求用户授权，即用户登录</h1>
 <p>客户端使用webview打开链接：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://www.example.com/oauth/authorize?oauth_token=hh5s93j4hdidpola</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.example.com/oauth/authorize?oauth_token=hh5s93j4hdidpola</span><br></pre></td></tr></table></figure></p>
 <p>注意webview需要开启javascript
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">webView.getSettings().setJavaScriptEnabled(true);</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webView.getSettings().setJavaScriptEnabled(true);</span><br></pre></td></tr></table></figure></p>
 <p>用户登录授权成功后，</p>
 <p>服务端返回重定向结果，重定向到第一步传递的callback地址，还包含了参数，oauth_token，oauth_verifier。
 示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http://printer.example.com/ready?</div><div class="line">oauth_token=hh5s93j4hdidpola&amp;oauth_verifier=hfdp7dh39dks9884</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://printer.example.com/ready?</span><br><span class="line">oauth_token=hh5s93j4hdidpola&amp;oauth_verifier=hfdp7dh39dks9884</span><br></pre></td></tr></table></figure></p>
 <p>oauth_token：与第一步返回的结果是一样的。<br>
 oauth_verifier：授权验证码。</p>
 <hr>
 <h1>获取Access Token</h1>
 <p>http请求示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">POST /token HTTP/1.1</div><div class="line">Host: photos.example.net</div><div class="line">Authorization: OAuth oauth_consumer_key=&quot;dpf43f3p2l4k3l03&quot;,</div><div class="line">   oauth_token=&quot;hh5s93j4hdidpola&quot;,</div><div class="line">   oauth_signature_method=&quot;HMAC-SHA1&quot;,</div><div class="line">   oauth_timestamp=&quot;137131201&quot;,</div><div class="line">   oauth_nonce=&quot;walatlh&quot;,</div><div class="line">   oauth_verifier=&quot;hfdp7dh39dks9884&quot;,</div><div class="line">   oauth_signature=&quot;gKgrFCywp7rO0OXSjdot%2FIHF7IU%3D&quot;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">Host: photos.example.net</span><br><span class="line">Authorization: OAuth oauth_consumer_key=&quot;dpf43f3p2l4k3l03&quot;,</span><br><span class="line">   oauth_token=&quot;hh5s93j4hdidpola&quot;,</span><br><span class="line">   oauth_signature_method=&quot;HMAC-SHA1&quot;,</span><br><span class="line">   oauth_timestamp=&quot;137131201&quot;,</span><br><span class="line">   oauth_nonce=&quot;walatlh&quot;,</span><br><span class="line">   oauth_verifier=&quot;hfdp7dh39dks9884&quot;,</span><br><span class="line">   oauth_signature=&quot;gKgrFCywp7rO0OXSjdot%2FIHF7IU%3D&quot;</span><br></pre></td></tr></table></figure></p>
 <p>与第一步类似，多了两个参数oauth_token,oauth_verifier<br>
 oauth_token：即request token，第一二步均有返回，都是一样的。<br>
 oauth_verifier：第二步返回的授权验证码。</p>
 <p>http返回示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line"></div><div class="line">oauth_token=nnch734d00sl2jdk&amp;oauth_token_secret=pfkkdhi9sl3r4s00</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">oauth_token=nnch734d00sl2jdk&amp;oauth_token_secret=pfkkdhi9sl3r4s00</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h1>签名规则</h1>
-<p><a href="https://tools.ietf.org/html/rfc5849#section-3.4" target="_blank" rel="external">rfc5849#section-3.4 Signature</a><br>
+<p><a href="https://tools.ietf.org/html/rfc5849#section-3.4" target="_blank" rel="noopener">rfc5849#section-3.4 Signature</a><br>
 签名的key略过，重点说说签名的内容。</p>
 <p>签名内容:</p>
 <ol>
@@ -591,7 +591,7 @@ header field set to &quot;application/x-www-form-urlencoded&quot;.</li>
 <hr>
 <p><code>查阅了几次rfc5849，认识才慢慢完善了，更改了几次，最后还是需要仔仔细细的阅rfc5849</code></p>
 <blockquote>
-<p>推荐阅读JakeWharton大神关于OAuth1.0写的代码<a href="https://gist.github.com/JakeWharton/f26f19732f0c5907e1ab" target="_blank" rel="external">Oauth1SigningInterceptor.java</a></p>
+<p>推荐阅读JakeWharton大神关于OAuth1.0写的代码<a href="https://gist.github.com/JakeWharton/f26f19732f0c5907e1ab" target="_blank" rel="noopener">Oauth1SigningInterceptor.java</a></p>
 </blockquote>
 
         
@@ -719,7 +719,7 @@ header field set to &quot;application/x-www-form-urlencoded&quot;.</li>
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">4</span></a>
+                <a class="sidebar_archives-link" href="/archives/2020/04/">四月 2020<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/03/">三月 2017<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/11/">十一月 2016<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/10/">十月 2016<span class="sidebar_archives-count">5</span></a></li><li><a class="sidebar_archives-link" href="/archives/2016/09/">九月 2016<span class="sidebar_archives-count">4</span></a>
             </ul>
         </li>
         
