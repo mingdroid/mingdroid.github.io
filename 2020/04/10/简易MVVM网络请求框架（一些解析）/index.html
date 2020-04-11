@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Fri Apr 10 2020 13:47:01 GMT+0800">
-        <meta property="article:modified_time" content="Sat Apr 11 2020 01:03:16 GMT+0800">
+        <meta property="article:modified_time" content="Sun Apr 12 2020 00:50:45 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://mingdroid.github.io/2020/04/10/简易MVVM网络请求框架（一些解析）/index.html",
     "headline": "简易MVVM网络请求框架（一些解析）",
     "datePublished": "Fri Apr 10 2020 13:47:01 GMT+0800",
-    "dateModified": "Sat Apr 11 2020 01:03:16 GMT+0800",
+    "dateModified": "Sun Apr 12 2020 00:50:45 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Huang Ming",
@@ -514,7 +514,7 @@ This scope will be canceled when ViewModel will be cleared, i.e [ViewModel.onCle
 </blockquote>
 </li>
 </ol>
-<p>尽管ViewModel里面没看到清理代码，实际上是有的，正在请求的API会被取消的。这里面涉及到Kotlin协程的知识。</p>
+<p>尽管ViewModel里面没看到清理代码，实际上是有的，当activity.onDestroy后，ViewModel.clear会被调用，viewModelScope.cancel也会被调用，viewModelScope.cancel会导致正在请求的API被取消的。所以activity关闭后，正在请求的API也会被取消，这很好。当然如果你不想API被取消，那你就不要使用viewModelScope。</p>
 <p>我们在Repo里面开启的协程，使用的是viewModelScope.coroutineContext，当viewModelScope被取消后，其子协程同样会被取消的。所以我们向TestRepo传递了viewModelScope.coroutineContext</p>
 <blockquote>
 <p>private val testRepo =  TestRepo(viewModelScope.coroutineContext)</p>
@@ -524,6 +524,7 @@ This scope will be canceled when ViewModel will be cleared, i.e [ViewModel.onCle
 <p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">liveData</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    context: <span class="type">CoroutineContext</span> = EmptyCoroutineContext,</span></span></span><br><span class="line"><span class="function"><span class="params">    timeoutInMs: <span class="type">Long</span> = DEFAULT_TIMEOUT,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="meta">@BuilderInference</span> block: <span class="type">suspend</span> <span class="type">LiveDataScope</span>&lt;<span class="type">T</span>&gt;.()</span></span> -&gt; <span class="built_in">Unit</span></span><br><span class="line">): LiveData&lt;T&gt; = CoroutineLiveData(context, timeoutInMs, block)</span><br></pre></td></tr></table></figure></p>
 <p>第一个参数是协程的上下文，我们要与ViewModel同步，所以用的是viewModelScope.coroutineContext</p>
 <p>第二个参数是超时时间，liveData会返回CoroutineLiveData，当CoroutineLiveData.hasActiveObservers == false时，即开始倒计时（当然如果block代码已执行完，那就不会开启倒计时了），超时后会取消第三个参数block代码块的执行（如果没执行完）。实际情况来说就是block执行的是网络请求，那么在Activity.onStop后，开始倒计时，倒计时到达后如果block没执行完，则会取消其执行，然后在Activity.onStart后，block代码块会重新执行。但是如果在倒计时前block代码块已执行完，将不会再重新执行。</p>
+<p><strong>要说明一下，这里的取消执行并不是因为viewModelScope.cancel被调用了，而是因为CoroutineLiveData的onInactivie被调用了，进而发生的取消</strong></p>
 <h2>其他</h2>
 <p>我们再次回到ViewModel的实现</p>
 <blockquote>
