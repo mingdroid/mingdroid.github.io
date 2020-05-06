@@ -37,7 +37,7 @@
     
     <title>
         
-            做个笔记吧，OAuth1.0a | 
+            归档: 2020/5 | 
         
         mingdroid
     </title>
@@ -48,8 +48,8 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="#0097A7">
     <meta name="author" content="Huang Ming">
-    <meta name="description" itemprop="description" content="使用OAuth1.0a协议支持第三方登录。">
-    <meta name="keywords" content="null,笔记">
+    <meta name="description" itemprop="description" content>
+    <meta name="keywords" content="null">
 
     <!-- Import lsloader -->
     <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(window.oldVersion){var remove=window.oldVersion.reduce(function(p,c){return p||data.indexOf("/*"+c+"*/")!==-1},false);if(remove){lsloader.removeLS(key)}}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload,isJs){if(typeof cssonload==="boolean"){isJs=cssonload;cssonload=undefined}isJs=isJs||false;cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload,isJs);return}code=code.split(versionString)[1];if(isJs){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload,isJs)}};lsloader.requestResource=function(name,path,cssonload,isJs){var that=this;if(isJs){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else{this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
@@ -231,62 +231,29 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://mingdroid.github.io">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="做个笔记吧，OAuth1.0a | mingdroid">
+    <meta property="og:title" content="归档: 2020/5 | mingdroid">
     <meta property="og:image" content="http://mingdroid.github.io/img/favicon.png">
-    <meta property="og:description" content="使用OAuth1.0a协议支持第三方登录。">
-    <meta property="og:article:tag" content="笔记"> 
-
+    <meta property="og:description" content>
     
-        <meta property="article:published_time" content="Tue Oct 18 2016 14:21:23 GMT+0800">
-        <meta property="article:modified_time" content="Tue Oct 30 2018 00:17:04 GMT+0800">
+
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="做个笔记吧，OAuth1.0a | mingdroid">
-    <meta name="twitter:description" content="使用OAuth1.0a协议支持第三方登录。">
+    <meta name="twitter:title" content="归档: 2020/5 | mingdroid">
+    <meta name="twitter:description" content>
     <meta name="twitter:image" content="http://mingdroid.github.io/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="http://mingdroid.github.io">
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://mingdroid.github.io/2016/10/18/做个笔记吧，OAuth1-0a/index.html">
+        <link rel="canonical" href="http://mingdroid.github.io/archives/2020/05/index.html">
     
 
     <!-- Structured-data for SEO -->
     
         
 
-
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "mainEntityOfPage": "http://mingdroid.github.io/2016/10/18/做个笔记吧，OAuth1-0a/index.html",
-    "headline": "做个笔记吧，OAuth1.0a",
-    "datePublished": "Tue Oct 18 2016 14:21:23 GMT+0800",
-    "dateModified": "Tue Oct 30 2018 00:17:04 GMT+0800",
-    "author": {
-        "@type": "Person",
-        "name": "Huang Ming",
-        "image": {
-            "@type": "ImageObject",
-            "url": "/img/avatar.png"
-        },
-        "description": "Hi, nice to meet you"
-    },
-    "publisher": {
-        "@type": "Organization",
-        "name": "mingdroid",
-        "logo": {
-            "@type":"ImageObject",
-            "url": "/img/favicon.png"
-        }
-    },
-    "keywords": ",笔记null",
-    "description": "使用OAuth1.0a协议支持第三方登录。",
-}
-</script>
 
 
     
@@ -328,318 +295,95 @@
                         </button>
                     
 
-                    <!-- Post TOC -->
-
+                    <!-- Index Module -->
+<div class="material-index mdl-grid">
     
-    <!-- Back Button -->
-    <!--
-    <div class="material-back" id="backhome-div" tabindex="0">
-        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-           href="#" onclick="window.history.back();return false;"
-           target="_self"
-           role="button"
-           data-upgraded=",MaterialButton,MaterialRipple">
-            <i class="material-icons" role="presentation">arrow_back</i>
-            <span class="mdl-button__ripple-container">
-                <span class="mdl-ripple"></span>
-            </span>
-        </a>
-    </div>
-    -->
+    <div class="locate-thumbnail-symbol"></div>
 
-
-    <!-- Left aligned menu below button -->
-    
-    
-    <button id="post-toc-trigger-btn"
-        class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">format_list_numbered</i>
-    </button>
-
-    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#null"><span class="post-toc-number">1.</span> <span class="post-toc-text">相关信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#null"><span class="post-toc-number">2.</span> <span class="post-toc-text">获取Request Token</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#null"><span class="post-toc-number">3.</span> <span class="post-toc-text">请求用户授权，即用户登录</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#null"><span class="post-toc-number">4.</span> <span class="post-toc-text">获取Access Token</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#null"><span class="post-toc-number">5.</span> <span class="post-toc-text">签名规则</span></a></li></ol>
-    </ul>
+    <!-- Pin on top -->
     
 
-
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
+    <!-- Normal Post -->
+    
+        
+            
+                <!-- Paradox Thumbnail -->
+                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
+    <!-- Post Thumbnail -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
+        
+    
 
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+        <!-- Post Title -->
+        <p class="article-headline-p"><a href="/2020/05/06/简易MVVM网络请求框架（多个请求）/">简易MVVM网络请求框架（多个请求）</a></p>
+    </div>
+
+    <!-- Post Excerpt -->
+    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
+        
+            多次API请求之顺序请求
+例：先上传用户头像图片，后更新用户信息
+
+        
+        &nbsp;&nbsp;&nbsp;
+        <span>
+            <a href="/2020/05/06/简易MVVM网络请求框架（多个请求）/" target="_self">阅读全文</a>
+        </span>
+    </div>
+    <!-- Post_entry Info-->
+    <div id="post_entry-info">
+        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
+            <!-- Author Avatar -->
+            <div id="author-avatar">
+                <img src="/img/avatar.png" width="44px" height="44px" alt="Huang Ming's avatar">
+            </div>
+            <div>
+                <strong>Huang Ming</strong>
+                <span>5月 06, 2020</span>
+            </div>
+        </div>
+        <div id="post_entry-right-info">
+          
+
+            
+
+            
+
+            <!-- Post Views -->
+            <span class="post_entry-views">
+            </span>
+        </div>
+    </div>
+</div>
+
+            
+            
+        
+    
+
+    
+
+    
+        <script type="text/ls-javascript" id="thumbnail-script">
+    var randomNum;
+
+    var locatePost = $('.locate-thumbnail-symbol').next();
+    for(var i = 0; i < 10; i++) {
+        randomNum = Math.floor(Math.random() * 19 + 1);
+
+        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
+        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
+
+        locatePost = locatePost.next();
+    }
 </script>
 
-        
-    
-            <p class="article-headline-p">
-                做个笔记吧，OAuth1.0a
-            </p>
-        </div>
-
-
-
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>Huang Ming</strong>
-        <span>10月 18, 2016</span>
-    </div>
-
-    <div class="section-spacer"></div>
-
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-
-    <!-- Tags (bookmark) -->
-    
-    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-        <i class="material-icons" role="presentation">bookmark</i>
-        <span class="visuallyhidden">bookmark</span>
-    </button>
-    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
-        <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/笔记/">笔记</a>
-    </ul>
-    
-
-    <!-- Share -->
-    
-        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=做个笔记吧，OAuth1.0a&url=http://mingdroid.github.io/2016/10/18/做个笔记吧，OAuth1-0a/index.html&pic=http://mingdroid.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                分享到微博
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=做个笔记吧，OAuth1.0a&url=http://mingdroid.github.io/2016/10/18/做个笔记吧，OAuth1-0a/index.html&via=Huang Ming" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Twitter
-            </li>
-        </a>
-    
-
-    <!-- Share Facebook -->
-    
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://mingdroid.github.io/2016/10/18/做个笔记吧，OAuth1-0a/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Facebook
-            </li>
-        </a>
-    
-
-    <!-- Share Google+ -->
-    
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://mingdroid.github.io/2016/10/18/做个笔记吧，OAuth1-0a/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                分享到 Google+
-            </li>
-        </a>
-    
-
-    <!-- Share LinkedIn -->
-    
-
-    <!-- Share QQ -->
-    
-
-    <!-- Share Telegram -->
-    
-</ul>
-
     
 </div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        <h1>相关信息</h1>
-<p>OAuth 1.0a的登录流程共有三个步骤：</p>
-<ol>
-<li>获取未授权的Request Token，与服务器交互。</li>
-</ol>
-<blockquote>
-<p>POST https://www.example.com/oauth/request_token</p>
-</blockquote>
-<ol start="2">
-<li>请求用户授权Request Token，客户端使用webview打开登录页面，用户登录授权。</li>
-</ol>
-<blockquote>
-<p>https://www.example.com/oauth/authorize</p>
-</blockquote>
-<ol start="3">
-<li>使用授权后的Request Token换取Access Token，与服务器交互。</li>
-</ol>
-<blockquote>
-<p>POST https://www.example.com/oauth/access_token</p>
-</blockquote>
-<hr>
-<h1>获取Request Token</h1>
-<p>示例来源：<a href="https://tools.ietf.org/html/rfc5849#section-1.2" target="_blank" rel="noopener">rfc5849</a><br>
-http请求示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST /oauth/request_token HTTP/1.1</span><br><span class="line">Host: www.example.com  </span><br><span class="line">Authorization: OAuth oauth_consumer_key=&quot;dpf43f3p2l4k3l03&quot;,  </span><br><span class="line">      oauth_signature_method=&quot;HMAC-SHA1&quot;,  </span><br><span class="line">      oauth_timestamp=&quot;137131200&quot;,  </span><br><span class="line">      oauth_nonce=&quot;wIjqoS&quot;,  </span><br><span class="line">      oauth_callback=&quot;http%3A%2F%2Fprinter.example.com%2Fready&quot;,  </span><br><span class="line">      oauth_signature=&quot;74KNZJeDHnMBp0EMJ9ZHt%2FXKycU%3D&quot;，  </span><br><span class="line">      oauth_version=&quot;1.0a&quot;</span><br></pre></td></tr></table></figure></p>
-<p>oauth_consumer_key是注册你的应用后获得。<br>
-oauth_signature_method=&quot;HMAC-SHA1&quot;，仅支持HMAC-SHA1。<br>
-oauth_timestamp是当前时间戳，以秒为单位。<br>
-oauth_nonce是随机字符串，只能包含字母与数字（不确定），与oauth_timestamp唯一对应。（不确定长度是否规定为8）<br>
-oauth_callback在注册你的应用时需要提供的回调URL，需要URLEncode。<br>
-oauth_signature签名结果，如何签名最后一节讨论，需要URLEncode。<br>
-oauth_version协议版本号。</p>
-<p>http返回示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">oauth_token=hh5s93j4hdidpola&amp;oauth_token_secret=hdhd0244k9j7ao03&amp;</span><br><span class="line">oauth_callback_confirmed=true</span><br></pre></td></tr></table></figure></p>
-<p>oauth_token：未授权的token。<br>
-oauth_token_secret：参与第三步的签名。<br>
-oauth_callback_confirmed：对oauth_callback的确认信号 (true/false)。</p>
-<hr>
-<h1>请求用户授权，即用户登录</h1>
-<p>客户端使用webview打开链接：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.example.com/oauth/authorize?oauth_token=hh5s93j4hdidpola</span><br></pre></td></tr></table></figure></p>
-<p>注意webview需要开启javascript
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webView.getSettings().setJavaScriptEnabled(true);</span><br></pre></td></tr></table></figure></p>
-<p>用户登录授权成功后，</p>
-<p>服务端返回重定向结果，重定向到第一步传递的callback地址，还包含了参数，oauth_token，oauth_verifier。
-示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://printer.example.com/ready?</span><br><span class="line">oauth_token=hh5s93j4hdidpola&amp;oauth_verifier=hfdp7dh39dks9884</span><br></pre></td></tr></table></figure></p>
-<p>oauth_token：与第一步返回的结果是一样的。<br>
-oauth_verifier：授权验证码。</p>
-<hr>
-<h1>获取Access Token</h1>
-<p>http请求示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST /token HTTP/1.1</span><br><span class="line">Host: photos.example.net</span><br><span class="line">Authorization: OAuth oauth_consumer_key=&quot;dpf43f3p2l4k3l03&quot;,</span><br><span class="line">   oauth_token=&quot;hh5s93j4hdidpola&quot;,</span><br><span class="line">   oauth_signature_method=&quot;HMAC-SHA1&quot;,</span><br><span class="line">   oauth_timestamp=&quot;137131201&quot;,</span><br><span class="line">   oauth_nonce=&quot;walatlh&quot;,</span><br><span class="line">   oauth_verifier=&quot;hfdp7dh39dks9884&quot;,</span><br><span class="line">   oauth_signature=&quot;gKgrFCywp7rO0OXSjdot%2FIHF7IU%3D&quot;</span><br></pre></td></tr></table></figure></p>
-<p>与第一步类似，多了两个参数oauth_token,oauth_verifier<br>
-oauth_token：即request token，第一二步均有返回，都是一样的。<br>
-oauth_verifier：第二步返回的授权验证码。</p>
-<p>http返回示例：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">oauth_token=nnch734d00sl2jdk&amp;oauth_token_secret=pfkkdhi9sl3r4s00</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h1>签名规则</h1>
-<p><a href="https://tools.ietf.org/html/rfc5849#section-3.4" target="_blank" rel="noopener">rfc5849#section-3.4 Signature</a><br>
-签名的key略过，重点说说签名的内容。</p>
-<p>签名内容:</p>
-<ol>
-<li>http request method in uppercase. For example: &quot;GET&quot;, &quot;POST&quot;, etc.</li>
-<li>An &quot;&amp;&quot; character (ASCII code 38).</li>
-<li>The base string URI, after being encoded. Like https://www.example.com/oauth/request_token.</li>
-<li>An &quot;&amp;&quot; character (ASCII code 38).</li>
-<li>The request parameters as normalized, after being encoded.</li>
-</ol>
-<p>第５点内容的 request parameters 包括内容有:</p>
-<ul>
-<li>OAuth1.0 协议的头部'Authorization' 包含的内容。</li>
-<li>http请求的查询参数，GET请求一般都会有。</li>
-<li>http实体部分，POST请求一般都会有。需要满足几个条件才能包括该部分内容，如下：</li>
-</ul>
-<blockquote>
-<ol>
-<li>The entity-body is single-part.</li>
-<li>The entity-body follows the encoding requirements of the
-&quot;application/x-www-form-urlencoded&quot; content-type as defined by
-[W3C.REC-html40-19980424].</li>
-<li>The HTTP request entity-header includes the &quot;Content-Type&quot;
-header field set to &quot;application/x-www-form-urlencoded&quot;.</li>
-</ol>
-</blockquote>
-<p>这三部分的内容都会被解析为键值对，组成一个列表，并且以key的字母表进行排序。以&amp;符号相连所有键值对如oauth_consumer_key=&lt;CONSUMER_KEY&gt;， 拼接该部分内容前，需要对key/value都进行encode，注意http请求的查询参数、http实体部分的键值对可能已被encode，若已被encode，则该步骤就不需要再次encode。（拼接为一个字符串后还需要被encode后才能作为第5点的内容）</p>
-<hr>
-<p><code>查阅了几次rfc5849，认识才慢慢完善了，更改了几次，最后还是需要仔仔细细的阅rfc5849</code></p>
-<blockquote>
-<p>推荐阅读JakeWharton大神关于OAuth1.0写的代码<a href="https://gist.github.com/JakeWharton/f26f19732f0c5907e1ab" target="_blank" rel="noopener">Oauth1SigningInterceptor.java</a></p>
-</blockquote>
-
-        
-    
-
-    
-</div>
-
-
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
-            </div>
-
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
-        <a href="/2016/10/21/Common-RecyclerView-Adapter/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
-
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
-
-    <!-- Next Nav -->
-    
-        <a href="/2016/10/14/做个笔记吧，OAuth2/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
-    
-</nav>
-
-        </div>
-    </div>
-
 
 
                     
