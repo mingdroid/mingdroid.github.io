@@ -238,7 +238,7 @@
 
     
         <meta property="article:published_time" content="Wed May 06 2020 14:21:01 GMT+0800">
-        <meta property="article:modified_time" content="Wed May 06 2020 14:35:19 GMT+0800">
+        <meta property="article:modified_time" content="Wed May 06 2020 14:39:24 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -265,7 +265,7 @@
     "mainEntityOfPage": "http://mingdroid.github.io/2020/05/06/简易MVVM网络请求框架（多个请求）/index.html",
     "headline": "简易MVVM网络请求框架（多个请求）",
     "datePublished": "Wed May 06 2020 14:21:01 GMT+0800",
-    "dateModified": "Wed May 06 2020 14:35:19 GMT+0800",
+    "dateModified": "Wed May 06 2020 14:39:24 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "Huang Ming",
@@ -501,20 +501,20 @@
 <p>第一个coroutineContext是suspend函数的，就是上一级传递下来的，这个函数的调用起点会是ViewModel，coroutineContext可能是viewModelScope.coroutineContext，也可能是viewModelScope的子协程context，所以当ViewModel执行clear()后，coroutineContext会被取消，上传图片的请求也会被取消。</p>
 <p>第二个Dispatchers.IO是指定函数体在IO线程执行，因为涉及到文件读写，所以最好在IO线程内执行</p>
 <blockquote>
-<p>每个suspend函数是可以被挂起的，不会阻塞主线程（除非你使用主线程执行函数）</p>
+<p>suspend函数是可以被挂起的，不会阻塞主线程（除非你使用主线程执行函数）</p>
 </blockquote>
-<p>最后的使用示例如下：</p>
+<p>最后，使用示例如下：</p>
 <p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">updateUserInfo</span><span class="params">(imageUri: <span class="type">Uri</span>)</span></span>: LiveData&lt;Resource&lt;Any&gt;&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> liveData(context) &#123;</span><br><span class="line">            emit(InProgress)</span><br><span class="line">            <span class="keyword">val</span> result = uploadFile(imageUri)</span><br><span class="line">            <span class="keyword">if</span> (result <span class="keyword">is</span> Resource.Success) &#123;</span><br><span class="line">                <span class="keyword">if</span> (result.<span class="keyword">data</span> != <span class="literal">null</span>) &#123;</span><br><span class="line">                    emit(dataFromNet &#123;</span><br><span class="line">                        service.updateUserInfo(result.<span class="keyword">data</span>.img_id.toRequestBody())</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    emit(MissingDataError)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                emit(result)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <h2>多次请求之并发请求</h2>
 <p>没有实际用例，下面是一些模拟的代码</p>
 <p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> suspend <span class="function"><span class="keyword">fun</span> <span class="title">multiCall</span><span class="params">()</span></span> = withContext(coroutineContext) &#123;</span><br><span class="line">        <span class="keyword">val</span> deferred0 = async &#123;</span><br><span class="line">            dataFromNet &#123;</span><br><span class="line">                service.getData0()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">val</span> deferred1 = async &#123;</span><br><span class="line">            dataFromNet &#123;</span><br><span class="line">                service.getData1()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">val</span> result0 = deferred0.await()</span><br><span class="line">        <span class="keyword">val</span> result1 = deferred1.await()</span><br><span class="line">        <span class="keyword">if</span> (result0 <span class="keyword">is</span> Resource.Success &amp;&amp; result1 <span class="keyword">is</span> Resource.Success) &#123;</span><br><span class="line">            <span class="comment">//combine result0 and result1</span></span><br><span class="line">            Resource.Success(result0.<span class="keyword">data</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (result0 <span class="keyword">is</span> Resource.Error) &#123;</span><br><span class="line">            result0</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>若要发起并发请求，则需要async来实现。</p>
+<p>若要发起并发请求，则需要async来实现。看看async.await()的注释</p>
 <blockquote>
 <p>Awaits for completion of this value without blocking a thread and resumes when deferred computation is complete</p>
 </blockquote>
 <p>dataFromNet(基于retrofit)是一个异步的请求，async.await()不会阻塞主线程。</p>
-<p>可以通过withContext(coroutineContext + Dispatchers.IO)在函数体内或async{}内做一些耗时操作。</p>
-<p>最后的使用示例如下：</p>
+<p>如果需要，可以通过withContext(coroutineContext + Dispatchers.IO)在函数体内或async{}内做一些耗时操作。</p>
+<p>最后，使用示例如下：</p>
 <p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">multiCallTest</span><span class="params">()</span></span>: LiveData&lt;Resource&lt;List&lt;String&gt;&gt;&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> liveData(context) &#123;</span><br><span class="line">        emit(InProgress)</span><br><span class="line">        emit(multiCall())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
         
