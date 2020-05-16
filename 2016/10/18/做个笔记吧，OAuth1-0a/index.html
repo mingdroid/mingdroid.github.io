@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mingdroid.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用OAuth1.0a协议支持第三方登录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="做个笔记吧，OAuth1.0a">
+<meta property="og:url" content="http://mingdroid.github.io/2016/10/18/%E5%81%9A%E4%B8%AA%E7%AC%94%E8%AE%B0%E5%90%A7%EF%BC%8COAuth1-0a/index.html">
+<meta property="og:site_name" content="mingdroid">
+<meta property="og:description" content="使用OAuth1.0a协议支持第三方登录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-10-18T06:21:23.000Z">
+<meta property="article:modified_time" content="2018-10-29T16:17:04.258Z">
+<meta property="article:author" content="Huang Ming">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://mingdroid.github.io/2016/10/18/%E5%81%9A%E4%B8%AA%E7%AC%94%E8%AE%B0%E5%90%A7%EF%BC%8COAuth1-0a/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>做个笔记吧，OAuth1.0a | mingdroid</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">mingdroid</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mingdroid.github.io/2016/10/18/%E5%81%9A%E4%B8%AA%E7%AC%94%E8%AE%B0%E5%90%A7%EF%BC%8COAuth1-0a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Huang Ming">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mingdroid">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          做个笔记吧，OAuth1.0a
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-18 14:21:23" itemprop="dateCreated datePublished" datetime="2016-10-18T14:21:23+08:00">2016-10-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-10-30 00:17:04" itemprop="dateModified" datetime="2018-10-30T00:17:04+08:00">2018-10-30</time>
+              </span>
+
+          
+            <div class="post-description">使用OAuth1.0a协议支持第三方登录。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>相关信息</h1>
+<p>OAuth 1.0a的登录流程共有三个步骤：</p>
+<ol>
+<li>获取未授权的Request Token，与服务器交互。</li>
+</ol>
+<blockquote>
+<p>POST <a href="https://www.example.com/oauth/request_token" target="_blank" rel="noopener">https://www.example.com/oauth/request_token</a></p>
+</blockquote>
+<ol start="2">
+<li>请求用户授权Request Token，客户端使用webview打开登录页面，用户登录授权。</li>
+</ol>
+<blockquote>
+<p><a href="https://www.example.com/oauth/authorize" target="_blank" rel="noopener">https://www.example.com/oauth/authorize</a></p>
+</blockquote>
+<ol start="3">
+<li>使用授权后的Request Token换取Access Token，与服务器交互。</li>
+</ol>
+<blockquote>
+<p>POST <a href="https://www.example.com/oauth/access_token" target="_blank" rel="noopener">https://www.example.com/oauth/access_token</a></p>
+</blockquote>
+<hr>
+<h1>获取Request Token</h1>
+<p>示例来源：<a href="https://tools.ietf.org/html/rfc5849#section-1.2" target="_blank" rel="noopener">rfc5849</a><br>
+http请求示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;oauth&#x2F;request_token HTTP&#x2F;1.1</span><br><span class="line">Host: www.example.com  </span><br><span class="line">Authorization: OAuth oauth_consumer_key&#x3D;&quot;dpf43f3p2l4k3l03&quot;,  </span><br><span class="line">      oauth_signature_method&#x3D;&quot;HMAC-SHA1&quot;,  </span><br><span class="line">      oauth_timestamp&#x3D;&quot;137131200&quot;,  </span><br><span class="line">      oauth_nonce&#x3D;&quot;wIjqoS&quot;,  </span><br><span class="line">      oauth_callback&#x3D;&quot;http%3A%2F%2Fprinter.example.com%2Fready&quot;,  </span><br><span class="line">      oauth_signature&#x3D;&quot;74KNZJeDHnMBp0EMJ9ZHt%2FXKycU%3D&quot;，  </span><br><span class="line">      oauth_version&#x3D;&quot;1.0a&quot;</span><br></pre></td></tr></table></figure>
+<p>oauth_consumer_key是注册你的应用后获得。<br>
+oauth_signature_method=“HMAC-SHA1”，仅支持HMAC-SHA1。<br>
+oauth_timestamp是当前时间戳，以秒为单位。<br>
+oauth_nonce是随机字符串，只能包含字母与数字（不确定），与oauth_timestamp唯一对应。（不确定长度是否规定为8）<br>
+oauth_callback在注册你的应用时需要提供的回调URL，需要URLEncode。<br>
+oauth_signature签名结果，如何签名最后一节讨论，需要URLEncode。<br>
+oauth_version协议版本号。</p>
+<p>http返回示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP&#x2F;1.1 200 OK</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">oauth_token&#x3D;hh5s93j4hdidpola&amp;oauth_token_secret&#x3D;hdhd0244k9j7ao03&amp;</span><br><span class="line">oauth_callback_confirmed&#x3D;true</span><br></pre></td></tr></table></figure>
+<p>oauth_token：未授权的token。<br>
+oauth_token_secret：参与第三步的签名。<br>
+oauth_callback_confirmed：对oauth_callback的确认信号 (true/false)。</p>
+<hr>
+<h1>请求用户授权，即用户登录</h1>
+<p>客户端使用webview打开链接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;www.example.com&#x2F;oauth&#x2F;authorize?oauth_token&#x3D;hh5s93j4hdidpola</span><br></pre></td></tr></table></figure>
+<p>注意webview需要开启javascript</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webView.getSettings().setJavaScriptEnabled(true);</span><br></pre></td></tr></table></figure>
+<p>用户登录授权成功后，</p>
+<p>服务端返回重定向结果，重定向到第一步传递的callback地址，还包含了参数，oauth_token，oauth_verifier。<br>
+示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;printer.example.com&#x2F;ready?</span><br><span class="line">oauth_token&#x3D;hh5s93j4hdidpola&amp;oauth_verifier&#x3D;hfdp7dh39dks9884</span><br></pre></td></tr></table></figure>
+<p>oauth_token：与第一步返回的结果是一样的。<br>
+oauth_verifier：授权验证码。</p>
+<hr>
+<h1>获取Access Token</h1>
+<p>http请求示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;token HTTP&#x2F;1.1</span><br><span class="line">Host: photos.example.net</span><br><span class="line">Authorization: OAuth oauth_consumer_key&#x3D;&quot;dpf43f3p2l4k3l03&quot;,</span><br><span class="line">   oauth_token&#x3D;&quot;hh5s93j4hdidpola&quot;,</span><br><span class="line">   oauth_signature_method&#x3D;&quot;HMAC-SHA1&quot;,</span><br><span class="line">   oauth_timestamp&#x3D;&quot;137131201&quot;,</span><br><span class="line">   oauth_nonce&#x3D;&quot;walatlh&quot;,</span><br><span class="line">   oauth_verifier&#x3D;&quot;hfdp7dh39dks9884&quot;,</span><br><span class="line">   oauth_signature&#x3D;&quot;gKgrFCywp7rO0OXSjdot%2FIHF7IU%3D&quot;</span><br></pre></td></tr></table></figure>
+<p>与第一步类似，多了两个参数oauth_token,oauth_verifier<br>
+oauth_token：即request token，第一二步均有返回，都是一样的。<br>
+oauth_verifier：第二步返回的授权验证码。</p>
+<p>http返回示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP&#x2F;1.1 200 OK</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">oauth_token&#x3D;nnch734d00sl2jdk&amp;oauth_token_secret&#x3D;pfkkdhi9sl3r4s00</span><br></pre></td></tr></table></figure>
+<hr>
+<h1>签名规则</h1>
+<p><a href="https://tools.ietf.org/html/rfc5849#section-3.4" target="_blank" rel="noopener">rfc5849#section-3.4 Signature</a><br>
+签名的key略过，重点说说签名的内容。</p>
+<p>签名内容:</p>
+<ol>
+<li>http request method in uppercase. For example: “GET”, “POST”, etc.</li>
+<li>An “&amp;” character (ASCII code 38).</li>
+<li>The base string URI, after being encoded. Like <a href="https://www.example.com/oauth/request_token" target="_blank" rel="noopener">https://www.example.com/oauth/request_token</a>.</li>
+<li>An “&amp;” character (ASCII code 38).</li>
+<li>The request parameters as normalized, after being encoded.</li>
+</ol>
+<p>第５点内容的 request parameters 包括内容有:</p>
+<ul>
+<li>OAuth1.0 协议的头部’Authorization’ 包含的内容。</li>
+<li>http请求的查询参数，GET请求一般都会有。</li>
+<li>http实体部分，POST请求一般都会有。需要满足几个条件才能包括该部分内容，如下：</li>
+</ul>
+<blockquote>
+<ol>
+<li>The entity-body is single-part.</li>
+<li>The entity-body follows the encoding requirements of the<br>
+“application/x-www-form-urlencoded” content-type as defined by<br>
+[W3C.REC-html40-19980424].</li>
+<li>The HTTP request entity-header includes the “Content-Type”<br>
+header field set to “application/x-www-form-urlencoded”.</li>
+</ol>
+</blockquote>
+<p>这三部分的内容都会被解析为键值对，组成一个列表，并且以key的字母表进行排序。以&amp;符号相连所有键值对如oauth_consumer_key=&lt;CONSUMER_KEY&gt;， 拼接该部分内容前，需要对key/value都进行encode，注意http请求的查询参数、http实体部分的键值对可能已被encode，若已被encode，则该步骤就不需要再次encode。（拼接为一个字符串后还需要被encode后才能作为第5点的内容）</p>
+<hr>
+<p><code>查阅了几次rfc5849，认识才慢慢完善了，更改了几次，最后还是需要仔仔细细的阅rfc5849</code></p>
+<blockquote>
+<p>推荐阅读JakeWharton大神关于OAuth1.0写的代码<a href="https://gist.github.com/JakeWharton/f26f19732f0c5907e1ab" target="_blank" rel="noopener">Oauth1SigningInterceptor.java</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/10/14/%E5%81%9A%E4%B8%AA%E7%AC%94%E8%AE%B0%E5%90%A7%EF%BC%8COAuth2/" rel="prev" title="做个笔记吧，OAuth2">
+      <i class="fa fa-chevron-left"></i> 做个笔记吧，OAuth2
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/10/21/Common-RecyclerView-Adapter/" rel="next" title="Common RecyclerView Adapter">
+      Common RecyclerView Adapter <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">相关信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">获取Request Token</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text">请求用户授权，即用户登录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">4.</span> <span class="nav-text">获取Access Token</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">5.</span> <span class="nav-text">签名规则</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Huang Ming</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huang Ming</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

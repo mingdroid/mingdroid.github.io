@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mingdroid.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="实现朋友圈图片查看的转场动画+滑动返回，RecyclerView to ViewPager。  RecyclerView to ViewPager 动画实现 下面介绍的便是RecyclerView 到 ViewPager的Shared Element transition动画，如朋友圈那样的。  SourceActivity(RecyclerView) —&gt; DestinationActiv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shared Element Transitions with RecyclerView to ViewPager + 滑动返回">
+<meta property="og:url" content="http://mingdroid.github.io/2017/03/14/SharedElementTransitions-RecyclerView-To-ViewPager/index.html">
+<meta property="og:site_name" content="mingdroid">
+<meta property="og:description" content="实现朋友圈图片查看的转场动画+滑动返回，RecyclerView to ViewPager。  RecyclerView to ViewPager 动画实现 下面介绍的便是RecyclerView 到 ViewPager的Shared Element transition动画，如朋友圈那样的。  SourceActivity(RecyclerView) —&gt; DestinationActiv">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://mingdroid.github.io/images/sharedElementTransition.gif">
+<meta property="article:published_time" content="2017-03-14T15:06:12.000Z">
+<meta property="article:modified_time" content="2018-10-29T16:17:04.261Z">
+<meta property="article:author" content="Huang Ming">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://mingdroid.github.io/images/sharedElementTransition.gif">
+
+<link rel="canonical" href="http://mingdroid.github.io/2017/03/14/SharedElementTransitions-RecyclerView-To-ViewPager/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Shared Element Transitions with RecyclerView to ViewPager + 滑动返回 | mingdroid</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">mingdroid</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mingdroid.github.io/2017/03/14/SharedElementTransitions-RecyclerView-To-ViewPager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Huang Ming">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mingdroid">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Shared Element Transitions with RecyclerView to ViewPager + 滑动返回
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-14 23:06:12" itemprop="dateCreated datePublished" datetime="2017-03-14T23:06:12+08:00">2017-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-10-30 00:17:04" itemprop="dateModified" datetime="2018-10-30T00:17:04+08:00">2018-10-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>实现朋友圈图片查看的转场动画+滑动返回，RecyclerView to ViewPager。</p>
+<p><img src="/images/sharedElementTransition.gif" alt="SharedElementTransitions" title="gif"></p>
+<h1>RecyclerView to ViewPager 动画实现</h1>
+<p>下面介绍的便是RecyclerView 到 ViewPager的Shared Element transition动画，如朋友圈那样的。</p>
+<blockquote>
+<p>SourceActivity(RecyclerView) —&gt; DestinationActivity(ViewPager)</p>
+</blockquote>
+<p>先阅读官方的Shared Element Transitions<a href="https://developer.android.com/training/material/animations.html#Transitions" target="_blank" rel="noopener">文档</a><br>
+总共5个步骤：</p>
+<ol>
+<li>Enable window content transitions in your theme.</li>
+<li>Specify a shared elements transition in your style.</li>
+<li>Define your transition as an XML resource.</li>
+<li>Assign a common name to the shared elements in both layouts with the android:transitionName attribute.</li>
+<li>Use the ActivityOptions.makeSceneTransitionAnimation() method.</li>
+</ol>
+<blockquote>
+<p>在主题中启动 window content transitions动画， 设置Shared Element transition 动画， 路径 <code>res/values-v21/styles.xml</code></p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowContentTransitions"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowSharedElementEnterTransition"</span>&gt;</span>@transition/change_image_transform<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowSharedElementExitTransition"</span>&gt;</span>@transition/change_image_transform<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>定义 Shared Element Transition 动画， 路径 <code>res/transition/change_image_transform.xml</code></p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">transitionSet</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">changeBounds</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">changeImageTransform</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">transitionSet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>RecyclerView, ViewPager都用到Adpter，自然不能在xml布局中设置 transitionName 了。<br>
+利用 View.setTransitionName()动态设置，在Adapter中绑定视图时设置transitionName。</p>
+<hr>
+<p>做了初步了解后，应该知道Shared Element transition动画是需要一个一对一的关系来确定动画的。<br>
+下面的步骤也不可少：</p>
+<p>一、 每个View应该有唯一 transitionName，不做详解。</p>
+<p>二、 需要等待 ViewPager 开始显示图片后才启用转场动画。</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//简化代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DestinationActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;</span><br><span class="line">            <span class="comment">//延迟动画</span></span><br><span class="line">            postponeEnterTransition();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhotoAdapter</span> <span class="keyword">extends</span> <span class="title">PagerAdapter</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">instantiateItem</span><span class="params">(ViewGroup container, <span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">            ImageView imageView = <span class="keyword">new</span> ImageView(container.getContext());</span><br><span class="line">            <span class="comment">//....省略</span></span><br><span class="line">            <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;</span><br><span class="line">                String name = container.getContext()</span><br><span class="line">                        .getString(R.string.transition_name, adapterPosition, position);</span><br><span class="line">                imageView.setTransitionName(name);</span><br><span class="line">                <span class="keyword">if</span> (position == current) &#123;</span><br><span class="line">                    <span class="comment">//初始化当前显示的ImageView时，设置一个callback开启转场动画</span></span><br><span class="line">                    setStartPostTransition(imageView);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// @TargetApi(21)</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setStartPostTransition</span><span class="params">(<span class="keyword">final</span> View sharedView)</span> </span>&#123;</span><br><span class="line">        sharedView.getViewTreeObserver().addOnPreDrawListener(</span><br><span class="line">                <span class="keyword">new</span> ViewTreeObserver.OnPreDrawListener() &#123;</span><br><span class="line">                    <span class="comment">// @Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onPreDraw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                        sharedView.getViewTreeObserver().removeOnPreDrawListener(<span class="keyword">this</span>);</span><br><span class="line">                        startPostponedEnterTransition();</span><br><span class="line">                        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>三、 ViewPager 中左右滑动后返回时要通知 SourceActivity.class。</p>
+<blockquote>
+<p>SourceActivity.onActivityReenter();<br>
+startActivityForResult();<br>
+setResult(RESULT_OK, intent);<br>
+这三个函数配合即可在 SourceActivity.class 中获取到变动通知。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onActivityReenter</span><span class="params">(<span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onActivityReenter(resultCode, data);</span><br><span class="line">    <span class="keyword">if</span> (resultCode == RESULT_OK &amp;&amp; data != <span class="keyword">null</span>) &#123;</span><br><span class="line">        exitPosition = data.getIntExtra(<span class="string">"exit_position"</span>, enterPosition);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>四、 既然有所变动，那么原先一对一的关系有所变动了，下面两个函数可处理这种情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DestinationActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//只有在ViewPager左右滑动后才需要在关闭时设置callback</span></span><br><span class="line">     <span class="comment">//view 为转场对象 ImageView</span></span><br><span class="line">    <span class="comment">//  @TargetApi(21)</span></span><br><span class="line">     <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setSharedElementCallback</span><span class="params">(<span class="keyword">final</span> View view)</span> </span>&#123;</span><br><span class="line">         setEnterSharedElementCallback(<span class="keyword">new</span> SharedElementCallback() &#123;</span><br><span class="line">            <span class="comment">//  @Override</span></span><br><span class="line">             <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMapSharedElements</span><span class="params">(List&lt;String&gt; names, Map&lt;String, View&gt; sharedElements)</span> </span>&#123;</span><br><span class="line">                 names.clear();</span><br><span class="line">                 sharedElements.clear();</span><br><span class="line">                 names.add(view.getTransitionName());</span><br><span class="line">                 sharedElements.put(view.getTransitionName(), view);</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;);</span><br><span class="line">     &#125;   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//exitPosition 是在 SourceActivity.onActivityReenter() 取得具体值的。</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SourceActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">      <span class="comment">// @TargetApi(21)</span></span><br><span class="line">      <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setCallback</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> enterPosition)</span> </span>&#123;</span><br><span class="line">          <span class="keyword">this</span>.enterPosition = enterPosition;</span><br><span class="line">          setExitSharedElementCallback(<span class="keyword">new</span> SharedElementCallback() &#123;</span><br><span class="line">              <span class="comment">// @Override</span></span><br><span class="line">              <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMapSharedElements</span><span class="params">(List&lt;String&gt; names, Map&lt;String, View&gt; sharedElements)</span> </span>&#123;</span><br><span class="line">                  <span class="keyword">if</span> (exitPosition != enterPosition &amp;&amp; names.size() &gt; <span class="number">0</span> &amp;&amp; exitPosition &lt; sharedViews.length) &#123;</span><br><span class="line">                      names.clear();</span><br><span class="line">                      sharedElements.clear();</span><br><span class="line">                      View view = sharedViews[exitPosition];</span><br><span class="line">                      names.add(view.getTransitionName());</span><br><span class="line">                      sharedElements.put(view.getTransitionName(), view);</span><br><span class="line">                  &#125;</span><br><span class="line">                  setExitSharedElementCallback((SharedElementCallback) <span class="keyword">null</span>);</span><br><span class="line">                  sharedViews = <span class="keyword">null</span>;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1>滑动返回实现</h1>
+<ol>
+<li>为 DestinationActivity.class 设置透明背景主题, 路径 <code>/res/values/styles.xml</code></li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme.Transparent"</span> <span class="attr">parent</span>=<span class="string">"AppTheme"</span>&gt;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowBackground"</span>&gt;</span>@android:color/transparent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowIsTranslucent"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>定义一个 DismissFrameLayout 用来包裹 ImageView, 实现手势检测， 动态更新 ImageView 位置, 动态设置 DestinationActivity.class 背景透明度。</li>
+</ol>
+<hr>
+<p><strong>Code tell everything</strong><br>
+<a href="https://github.com/mingdroid/SETransitionDemo" target="_blank" rel="noopener"><strong>Demo</strong></a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/11/08/FlexboxLayout%E5%AE%9E%E7%8E%B0%E4%B8%8D%E8%A7%84%E5%88%99%E5%9B%BE%E7%89%87%E5%A2%99/" rel="prev" title="FlexboxLayout实现不规则图片墙">
+      <i class="fa fa-chevron-left"></i> FlexboxLayout实现不规则图片墙
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/10/17/animation-list-optimization/" rel="next" title="帧动画优化思路">
+      帧动画优化思路 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text">RecyclerView to ViewPager 动画实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text">滑动返回实现</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Huang Ming</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huang Ming</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
